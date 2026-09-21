@@ -227,6 +227,17 @@
     });
   });
 
+  /* ════════════ COSA VISITARE: la fila di cartoline scivola piano con lo scroll (solo dove non si scorre col dito) ════════════ */
+  const mm = gsap.matchMedia();
+  mm.add("(min-width: 901px)", () => {
+    const nastro = $(".mete-sez__nastro");
+    if (!nastro) return;
+    gsap.fromTo(nastro, { xPercent: 6 }, {
+      xPercent: -6, ease: "none",
+      scrollTrigger: { trigger: ".mete-sez", start: "top bottom", end: "bottom top", scrub: true },
+    });
+  });
+
   /* ════════════ CITAZIONE: righe rivelate da sinistra a destra ════════════ */
   $$(".citazione__riga").forEach((r, i) => {
     gsap.fromTo(r, { clipPath: "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)" }, {

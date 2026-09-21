@@ -30,6 +30,9 @@ contenuti veri dell'agriturismo. Il marchio script con i quattro girasoli
   scorrono sul lato opposto sotto l'etichetta fissa; nella seconda lista la
   striscia va nel verso contrario; la foto in vista respira piano
 - **Citazione rossa** con il taglio in alto e le righe rivelate da sinistra a destra
+- **Il menù** di stagione con prezzi e allergeni, in due colonne con le righe che entrano in sequenza
+- **Cosa visitare**: cinque cartoline a parallelogramma (Vicenza, Marostica, Padova, Verona, Venezia) che scivolano piano con lo scroll; su telefono si sfogliano col dito
+- **La mappa** nei contatti: immagine fissa dai dati OpenStreetMap tinta nei colori del sito, con il segnaposto e il pulsante che apre Google Maps (niente cookie di terzi)
 - Contatti e certificazioni con alzata in sequenza, piede rosso tagliato
 - Testata fissa crema con menu a tutto schermo che si apre a cerchio;
   bottone tondo fisso in basso a sinistra per chiamare

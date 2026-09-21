@@ -374,11 +374,101 @@ body.menu-aperto .testata { background: transparent; }
 .citazione__riga--forte { font-weight: 500; }
 .citazione__nota { font-size: 14px; font-style: italic; opacity: .85; }
 
+/* ── titoli delle sezioni nuove, nello stesso corsivo delle liste ── */
+.titolone {
+  color: var(--rosso);
+  font-size: clamp(30px, 3vw, 44px);
+  font-weight: 300;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: .01em;
+  margin-bottom: 18px;
+  max-width: 16ch;
+}
+
+/* ── il menù ── */
+.menu-sez { background: var(--crema); padding: clamp(80px, 10vw, 150px) var(--gutter) clamp(72px, 9vw, 130px); }
+.menu-sez__testa, .mete-sez__testa {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: clamp(24px, 5vw, 90px);
+  align-items: start;
+}
+.menu-sez__intro p, .mete-sez__intro p { font-size: 15px; line-height: 1.65; max-width: 58ch; }
+.menu-sez__colonne {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 4vw, 64px) clamp(32px, 6vw, 110px);
+  margin-top: clamp(40px, 6vw, 90px);
+}
+.portata h3 { font-size: 13px; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; color: var(--rosso); margin-bottom: 8px; }
+.portata dl { margin: 0; }
+.piatto {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--linea);
+}
+.piatto dt { font-size: 15px; line-height: 1.45; }
+.piatto dt small { display: block; font-size: 11px; letter-spacing: .06em; color: var(--grigio); margin-top: 2px; }
+.piatto dd { margin: 0; color: var(--rosso); font-style: italic; font-size: 15px; white-space: nowrap; }
+.menu-sez__nota { margin-top: clamp(28px, 4vw, 48px); font-size: 14px; font-style: italic; color: var(--grigio); max-width: 70ch; }
+@media (max-width: 900px) {
+  .menu-sez__testa, .mete-sez__testa { grid-template-columns: 1fr; }
+  .menu-sez__colonne { grid-template-columns: 1fr; }
+}
+
+/* ── cosa visitare: cartoline a parallelogramma in fila ── */
+.mete-sez { background: var(--crema); padding: clamp(80px, 10vw, 150px) 0 clamp(72px, 9vw, 130px); }
+.mete-sez__testa { padding: 0 var(--gutter); }
+.mete-sez__strip { margin-top: clamp(40px, 6vw, 80px); padding: 0 var(--gutter); overflow: hidden; }
+.mete-sez__nastro { display: flex; gap: clamp(16px, 2.2vw, 36px); will-change: transform; }
+.meta { flex: 0 0 clamp(230px, 18.5vw, 300px); }
+.meta figure { overflow: hidden; clip-path: polygon(0 0, 90% 0, 100% 100%, 10% 100%); background: var(--crema-2); }
+.meta img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; transition: transform .8s var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .meta:hover img { transform: scale(1.05); } }
+.meta h3 { margin-top: 16px; font-size: 22px; font-weight: 300; font-style: italic; text-transform: uppercase; color: var(--rosso); }
+.meta p { margin-top: 8px; font-size: 14px; line-height: 1.6; }
+@media (max-width: 900px) {
+  .mete-sez__strip { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 8px; }
+  .mete-sez__strip::-webkit-scrollbar { display: none; }
+  .meta { flex-basis: 72vw; scroll-snap-align: start; }
+}
+
+/* ── la mappa ── */
+.contatti__sinistra { display: grid; gap: 22px; align-content: start; }
+.mappa {
+  position: relative;
+  overflow: hidden;
+  clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
+  background: var(--crema-2);
+}
+.mappa img { width: 100%; height: auto; }
+.mappa__pin { position: absolute; left: var(--pin-x); top: var(--pin-y); width: 30px; height: 40px; transform: translate(-50%, -100%); filter: drop-shadow(0 4px 6px rgba(0, 0, 0, .25)); }
+.mappa__nome {
+  position: absolute;
+  left: var(--pin-x); top: var(--pin-y);
+  transform: translate(-50%, 8px);
+  padding: .35em .7em;
+  background: var(--rosso);
+  color: var(--crema);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.mappa__nota { font-size: 14px; line-height: 1.6; }
+.mappa__nota small { font-size: 12px; color: var(--grigio); }
+.mappa__nota small a { border-bottom: 1px solid var(--linea); }
+
 /* ── contatti e certificazioni ── */
 .contatti { background: var(--crema); padding: clamp(80px, 10vw, 150px) var(--gutter) calc(var(--taglio) + clamp(40px, 6vw, 90px)); }
 .contatti__griglia {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1.15fr 1.6fr;
   gap: clamp(24px, 5vw, 90px);
   align-items: start;
 }

@@ -25,6 +25,11 @@ ecco cosa è ripreso pari pari, cosa è dedotto e cosa è inventato.
 | Motto | «Mangiare sano, naturalmente» | slider della home |
 | Regola | nel ristorante non sono ammessi animali | Home |
 
+## Menù, mappa e mete (aggiunti dopo)
+- **Il menù** con prezzi e numeri degli allergeni è copiato dalla pagina Menu del sito attuale (stagionale: da riconfermare piatto per piatto prima di mostrarlo).
+- **La mappa** è un'immagine fissa fatta con i dati di OpenStreetMap, tinta nei colori del sito: il segnaposto è su via Adige a Marola (geocodifica della via, non del civico 37): controllare che il punto sia giusto. Il pulsante «Apri in Google Maps» cerca «Agriturismo Ae Noseare»; sul sito vecchio c'era una mappa Google incorporata, qui evitata perché installerebbe cookie di terzi.
+- **Cosa visitare**: i testi sono riassunti dalla pagina del sito attuale (Marostica, Vicenza, Verona, Padova, Venezia; Bassano e Asolo nell'introduzione); le foto sono le loro, piccole (380 px).
+
 ## Dedotto o inventato da me
 - **«Il nome sono i noci»** (README): "noseare" in dialetto dovrebbe essere il plurale di noce; non compare sul sito, chiedere.
 - **«I dolci escono dal loro forno»** (manifesto): il sito dice solo "dolci tutti fatti in casa".
