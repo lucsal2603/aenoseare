@@ -400,11 +400,16 @@ body.menu-aperto .testata { background: transparent; transition: background 0s .
   align-items: start;
 }
 .menu-sez__intro p, .mete-sez__intro p { font-size: 15px; line-height: 1.65; max-width: 58ch; }
+/* il menù sta dentro un bordino sottile, come una carta stampata */
+.menu-sez__carta {
+  margin-top: clamp(40px, 6vw, 90px);
+  padding: clamp(24px, 4vw, 60px) clamp(20px, 4vw, 64px);
+  border: 1px solid var(--rosso);
+}
 .menu-sez__colonne {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(28px, 4vw, 64px) clamp(32px, 6vw, 110px);
-  margin-top: clamp(40px, 6vw, 90px);
 }
 .portata h3 { font-size: 13px; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; color: var(--rosso); margin-bottom: 8px; }
 .portata dl { margin: 0; }
