@@ -91,23 +91,28 @@ h2, h3 { font-weight: 300; line-height: 1.05; }
   text-transform: uppercase;
   color: var(--rosso);
 }
+/* due righe: chiuse, una lunga e una corta allineate a destra; aperte, una X vera che si incrocia al centro */
 .testata__menu {
   position: relative;
   width: 44px; height: 44px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 7px;
   color: var(--rosso);
+  transition: color .3s;
 }
-.testata__menu span { display: block; height: 1.5px; background: currentColor; width: 34px; transition: transform .45s var(--ease-in-out), width .3s, opacity .3s; }
-.testata__menu span:last-child { width: 24px; }
+.testata__menu span {
+  position: absolute;
+  right: 5px;
+  height: 1.5px;
+  background: currentColor;
+  transform-origin: center;
+  transition: transform .45s var(--ease-in-out), top .45s var(--ease-in-out), width .45s var(--ease-in-out);
+}
+.testata__menu span:nth-of-type(1) { top: 16px; width: 34px; }
+.testata__menu span:nth-of-type(2) { top: 26px; width: 24px; }
 .testata__menu em { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 .testata__menu[aria-expanded="true"] { color: var(--crema); }
-.testata__menu[aria-expanded="true"] span:first-child { transform: translateY(4.5px) rotate(45deg); }
-.testata__menu[aria-expanded="true"] span:last-child { width: 34px; transform: translateY(-4px) rotate(-45deg); }
-body.menu-aperto .testata { background: transparent; }
+.testata__menu[aria-expanded="true"] span:nth-of-type(1) { top: 21px; width: 34px; transform: rotate(45deg); }
+.testata__menu[aria-expanded="true"] span:nth-of-type(2) { top: 21px; width: 34px; transform: rotate(-45deg); }
+body.menu-aperto .testata { background: transparent; transition: background 0s .1s; }
 @media (max-width: 760px) { .testata__nav { display: none; } }
 
 /* ── menu a tutto schermo ── */
@@ -123,10 +128,10 @@ body.menu-aperto .testata { background: transparent; }
   justify-content: space-between;
   gap: 32px;
   clip-path: circle(0 at calc(100% - 44px) 33px);
-  transition: clip-path .7s var(--ease-in-out);
+  transition: clip-path .7s var(--ease-in-out), visibility 0s linear .7s;
   visibility: hidden;
 }
-.menu.aperto { clip-path: circle(150% at calc(100% - 44px) 33px); visibility: visible; }
+.menu.aperto { clip-path: circle(150% at calc(100% - 44px) 33px); visibility: visible; transition: clip-path .7s var(--ease-in-out), visibility 0s linear 0s; }
 .menu__voci { display: flex; flex-direction: column; gap: 4px; }
 .menu__voci a {
   font-size: clamp(38px, 7vw, 92px);
@@ -137,9 +142,9 @@ body.menu-aperto .testata { background: transparent; }
   line-height: 1.15;
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity .5s var(--ease-out), transform .6s var(--ease-out);
+  transition: opacity .25s, transform .3s;
 }
-.menu.aperto .menu__voci a { opacity: 1; transform: none; }
+.menu.aperto .menu__voci a { opacity: 1; transform: none; transition: opacity .5s var(--ease-out), transform .6s var(--ease-out); }
 .menu.aperto .menu__voci a:nth-child(2) { transition-delay: .06s; }
 .menu.aperto .menu__voci a:nth-child(3) { transition-delay: .12s; }
 .menu.aperto .menu__voci a:nth-child(4) { transition-delay: .18s; }
@@ -423,9 +428,9 @@ body.menu-aperto .testata { background: transparent; }
 /* ── cosa visitare: cartoline a parallelogramma in fila ── */
 .mete-sez { background: var(--crema); padding: clamp(80px, 10vw, 150px) 0 clamp(72px, 9vw, 130px); }
 .mete-sez__testa { padding: 0 var(--gutter); }
-.mete-sez__strip { margin-top: clamp(40px, 6vw, 80px); padding: 0 var(--gutter); overflow: hidden; }
-.mete-sez__nastro { display: flex; gap: clamp(16px, 2.2vw, 36px); will-change: transform; }
-.meta { flex: 0 0 clamp(230px, 18.5vw, 300px); }
+.mete-sez__strip { margin-top: clamp(40px, 6vw, 80px); padding: 0 var(--gutter); }
+.mete-sez__nastro { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(16px, 2.2vw, 36px); }
+.meta { min-width: 0; will-change: transform; }
 .meta figure { overflow: hidden; clip-path: polygon(0 0, 90% 0, 100% 100%, 10% 100%); background: var(--crema-2); }
 .meta img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; transition: transform .8s var(--ease-out); }
 @media (hover: hover) and (pointer: fine) { .meta:hover img { transform: scale(1.05); } }
@@ -434,7 +439,8 @@ body.menu-aperto .testata { background: transparent; }
 @media (max-width: 900px) {
   .mete-sez__strip { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 8px; }
   .mete-sez__strip::-webkit-scrollbar { display: none; }
-  .meta { flex-basis: 72vw; scroll-snap-align: start; }
+  .mete-sez__nastro { display: flex; }
+  .meta { flex: 0 0 72vw; scroll-snap-align: start; }
 }
 
 /* ── la mappa ── */

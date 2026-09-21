@@ -230,11 +230,14 @@
   /* ════════════ COSA VISITARE: la fila di cartoline scivola piano con lo scroll (solo dove non si scorre col dito) ════════════ */
   const mm = gsap.matchMedia();
   mm.add("(min-width: 901px)", () => {
-    const nastro = $(".mete-sez__nastro");
-    if (!nastro) return;
-    gsap.fromTo(nastro, { xPercent: 6 }, {
-      xPercent: -6, ease: "none",
-      scrollTrigger: { trigger: ".mete-sez", start: "top bottom", end: "bottom top", scrub: true },
+    const carte = $$(".mete-sez__nastro .meta");
+    if (!carte.length) return;
+    /* le cinque cartoline restano tutte dentro la pagina: si muovono solo in verticale, alternate, mai tagliate ai lati */
+    carte.forEach((c, i) => {
+      gsap.fromTo(c, { y: i % 2 ? 34 : -22 }, {
+        y: i % 2 ? -34 : 22, ease: "none",
+        scrollTrigger: { trigger: ".mete-sez__strip", start: "top bottom", end: "bottom top", scrub: true },
+      });
     });
   });
 
