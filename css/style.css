@@ -273,18 +273,11 @@ body.menu-aperto .testata { color: var(--carta); }
   font-family: var(--display);
   font-weight: 600;
   font-size: 14px;
-  padding: .55em .95em .55em .75em;
+  padding: .55em .95em;
   border-radius: 999px;
   border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
   background: color-mix(in srgb, currentColor 9%, transparent);
   backdrop-filter: blur(8px);
-}
-.eroe__stato i { width: 9px; height: 9px; border-radius: 50%; background: var(--girasole); animation: pulsa 2.2s infinite; }
-.eroe__stato.chiusa i { background: #b9b3a0; animation: none; }
-@keyframes pulsa {
-  0% { box-shadow: 0 0 0 0 rgba(242,182,50,.55); }
-  70% { box-shadow: 0 0 0 9px rgba(242,182,50,0); }
-  100% { box-shadow: 0 0 0 0 rgba(242,182,50,0); }
 }
 .eroe__dopo { display: flex; flex-wrap: wrap; gap: 12px; margin-top: clamp(18px, 3vh, 30px); opacity: 0; visibility: hidden; transform: translateY(14px); }
 .eroe__giu {
@@ -425,11 +418,7 @@ body.menu-aperto .testata { color: var(--carta); }
   font-weight: 600;
   font-size: clamp(18px, 1.5vw, 24px);
   letter-spacing: -.01em;
-  display: flex;
-  gap: 12px;
-  align-items: center;
 }
-.specialita li::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--girasole); flex: none; }
 
 .piatti {
   position: relative;
