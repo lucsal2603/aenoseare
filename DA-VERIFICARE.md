@@ -18,7 +18,6 @@ ecco cosa è ripreso pari pari, cosa è dedotto e cosa è inventato.
 | Fattoria didattica | accreditata Regione Veneto, percorsi dai 3 anni; centri estivi 6-12 anni | pagina Fattoria |
 | Spaccio | formaggi, sopresse, salami, pancette, pasta fresca, confetture; distributore Latterie Vicentine; latte 1,20 € | pagina Spaccio |
 | Piatti "dal menù" | bigoli con ragù d'anatra, tortelli di zucca, maccheroni al radicchio e salsiccia, zuppa dell'orto, antipasto della casa | pagina Menu (senza prezzi, di proposito) |
-| Serata a tema | «A cena con la zucca», locandina dell'11 settembre 2026 | pagina Menu |
 | Distanze | circa 8 km / 10 minuti dal centro di Vicenza; casello Vicenza Est | pagine Agriturismo e Cosa visitare |
 | Recapiti | via Adige 37, Marola, 36040 Torri di Quartesolo (VI); 0444 910305; 345 3229902; noseare@gmail.com | Home e Contatti |
 | Ragione sociale | Azienda Agrituristica Nicolin e Zambello S.S., P.IVA 02965890243 | piede del sito attuale |
@@ -29,21 +28,21 @@ ecco cosa è ripreso pari pari, cosa è dedotto e cosa è inventato.
 ## Dedotto o inventato da me
 - **«Il nome sono i noci»** (README): "noseare" in dialetto dovrebbe essere il plurale di noce; non compare sul sito, chiedere.
 - **«I dolci escono dal loro forno»** (manifesto): il sito dice solo "dolci tutti fatti in casa".
-- **Didascalie dei piatti** nella striscia (es. «ogni settimana, a mano», «quando è stagione», «sulla brace del ristorante»): frasi mie di raccordo.
-- **Nomi delle camere** («La mansarda con le travi», «La camera a due letti», «La camera coi fiori», «La camera a righe»): descrivono le foto, non sono nomi ufficiali.
-- **Stato della cucina** in alto («Stasera la cucina è aperta» ecc.): calcolato solo dal giorno della settimana, senza orari; da spegnere se non piace.
+- **«Singole, doppie e triple, alcune in mansarda con le travi a vista»**: dedotto dalle foto e dal listino, da confermare.
+- **Manifesto** («Coltiviamo e alleviamo quello che portiamo in tavola…»): riformula la pagina Cucina del sito attuale.
 - **«Vi accompagniamo in stazione»**: sul sito c'è, ma è vincolato a "se necessario e avvisandoci per tempo" (l'ho scritto).
 - **Link delle certificazioni** (mia scelta, sul sito attuale non funzionano): Agriturismo Italia → agriturismoitalia.gov.it; Campagna Amica → campagnamica.it; Fattorie Didattiche → pagina della Regione Veneto; Land of Venice → veneto.eu; MIPAAFT → masaf.gov.it (il ministero ha cambiato nome); Terranostra → terranostra.it. Da confermare che siano i siti giusti.
 - **Marchio dei girasoli** nell'aia e nel piede: preso dal sito attuale (versione bianca, 512 px): serve il file originale.
 
-## Foto
-Tutte le foto vengono dal sito attuale e sono piccole (1000-1900 px, del 2018-2020).
-Per il sito vero servono scatti nuovi. Quelli che mancano del tutto sono segnati
-in pagina con i riquadri tratteggiati «foto da fare»:
-- Cometa e Otto nel prato con la casa gialla sullo sfondo
-- una classe in visita alla fattoria didattica
-Altre foto utili: la casetta dello spaccio e il distributore del latte, la colazione
-apparecchiata, la famiglia al completo, la sala per le feste con più luce.
+## Foto e marchio
+Tutte le foto vengono dal sito attuale e sono piccole (1000-1900 px, del 2018-2020);
+nella nuvola dell'apertura e nei riquadri grandi si vede. Per il sito vero servono
+scatti nuovi. Manca del tutto, segnata in pagina con il riquadro tratteggiato
+«foto da fare»: la colazione di Antonietta apparecchiata.
+Altre foto utili: Cometa e Otto nel prato, una classe in visita, la casetta dello
+spaccio e il distributore del latte, la famiglia al completo, la sala con più luce.
+Il marchio con i quattro girasoli è un PNG di 512 px preso dal sito attuale e tinto
+di rosso: serve il file originale (vettoriale o grande) per la stampa nitida.
 
 ## Prima di pubblicare sul dominio
 - togliere `noindex` e riaprire `robots.txt`

@@ -8,39 +8,37 @@ spaccio. Bozza gratuita concordata con Claudia il 16 settembre 2026.
 
 Questa è una bozza: la pagina dichiara `noindex, nofollow` e `robots.txt`
 chiude tutto, così l'anteprima non disturba il sito ufficiale aenoseare.it.
+La prima versione (l'aia con le parole di traverso) resta nel tag `v1-aia`.
 
-## Idea
-Il nome, in dialetto, sono i noci: la casa gialla in mezzo ai campi. Carta di
-noce, verde delle foglie e giallo dei girasoli del loro marchio. Al centro
-della pagina c'è **l'aia**: sette parole giganti di traverso (cucina, camere,
-fattoria, spaccio, feste, dintorni, contatti), ognuna col suo binario e la sua
-foto, che portano alle sezioni.
+## Impianto
+Crema, rosso mattone, un solo carattere (Hanken Grotesk) e tagli diagonali
+fra le fasce: l'impianto è quello di facetad.com, riempito con le foto e i
+contenuti veri dell'agriturismo. Il marchio script con i quattro girasoli
+(preso dal sito attuale in bianco) è stato tinto di rosso per il fondo chiaro.
 
 ## Movimento
-- Schermata d'ingresso con il nome lettera per lettera, solo alla prima visita
-- Eroe appuntato: la foto della casa si stringe e si aggancia a destra mentre
-  entra il testo; su telefono diventa una fascia sopra al titolo
-- Manifesto appuntato con le parole che si accendono una a una
-- L'aia: parole che scivolano lungo il binario, binari che si disegnano,
-  foto che si aprono di traverso e vanno in parallasse, riempimento giallo al passaggio
-- Striscia dei piatti a scorrimento orizzontale appuntata, con parallasse dentro le foto
-- Pila delle camere che si coprono, numeri che salgono
-- Nastri degli animali che accelerano e si inclinano con lo scroll
-- Linea della famiglia che si riempie, tappe che si accendono
-- Righe dello spaccio con velo giallo e anteprima che segue il mouse
-- Cartoline dei dintorni che si inclinano sotto il mouse
-- Titoli a parole mascherate, blocchi con alzata, cornici in parallasse
-- Marchio gigante che affiora nel piede, testata che si nasconde scendendo
-- Stato della cucina calcolato sul giorno (ora di Roma)
+- Logo e motto fermi al centro mentre una **nuvola di 24 foto a parallelogramma**
+  gli scorre attorno, ognuna con la sua velocità di parallasse e la sua
+  dissolvenza in entrata; le foto seguono appena il mouse (le vicine più
+  delle lontane); il palco sbiadisce quando arriva la prima fascia
+- Tre **fasce a tutto schermo con i tagli diagonali** alternati, ognuna
+  con la foto che scorre dentro il taglio
+- Manifesto rosso in maiuscolo con le parole che arrivano in sequenza
+- Due **liste appiccicose** (l'agriturismo, le camere): la foto inclinata si
+  scambia con scivolata e sfocatura mentre titolo e testo cambiano, tutto
+  legato allo scroll e reversibile; la foto in vista respira piano
+- **Citazione rossa** con il taglio in alto e le righe rivelate da sinistra a destra
+- Contatti e certificazioni con alzata in sequenza, piede rosso tagliato
+- Testata fissa crema con menu a tutto schermo che si apre a cerchio;
+  bottone tondo fisso in basso a sinistra per chiamare
 
 ## Tecnica
 HTML, CSS e JavaScript puri, senza build. GSAP 3.13 con ScrollTrigger e Lenis
-via CDN. Font Bricolage Grotesque e Newsreader da Google Fonts.
-Con `prefers-reduced-motion` la pagina è ferma e leggibile.
-`?qa` nell'URL salta loader e Lenis (serve ai collaudi).
+via CDN. Con `prefers-reduced-motion` la pagina è ferma e leggibile.
+`?qa` nell'URL salta Lenis (serve ai collaudi).
 
 Le foto vengono dal sito attuale aenoseare.it (risoluzione bassa, del 2018-2020).
-I riquadri tratteggiati sono segnaposto e dicono quale foto va fatta.
+Il riquadro tratteggiato è un segnaposto e dice quale foto va fatta.
 Tutto ciò che è stato dedotto o inventato è in `DA-VERIFICARE.md`.
 
 ## In locale
