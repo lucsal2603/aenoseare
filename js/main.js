@@ -198,28 +198,27 @@
     });
   });
 
-  /* ════════════ LISTE APPICCICOSE: foto inclinate che si scambiano con sfocatura ════════════ */
+  /* ════════════ LISTE: la striscia di foto scorre in linea con lo scroll, i testi scorrono a lato ════════════ */
   $$("[data-lista]").forEach((sezione) => {
+    const nastro = $(".lista__nastro", sezione);
+    const finestra = $(".lista__finestra", sezione);
     const quadri = $$(".lista__quadro", sezione);
-    const voci = $$(".lista__voce", sezione);
     const n = quadri.length;
-    const verso = sezione.classList.contains("lista--foto-dx") ? -1 : 1;
-    gsap.set(quadri.slice(1), { autoAlpha: 0, xPercent: 16 * verso, filter: "blur(10px)" });
-    gsap.set(voci.slice(1), { autoAlpha: 0, y: 26 });
+    const verso = sezione.classList.contains("lista--foto-dx") ? 1 : -1;
+    const passoPx = () => finestra.clientWidth;          /* un quadro (84%) + il vuoto (16%) */
+    const passoScroll = () => parseFloat(getComputedStyle(sezione).getPropertyValue("--passo")) / 100 * innerHeight;
     const tl = gsap.timeline({
-      scrollTrigger: { trigger: sezione, start: "top top", end: "bottom bottom", scrub: 0.6, invalidateOnRefresh: true },
+      scrollTrigger: {
+        trigger: sezione, start: "top top", end: () => "+=" + n * passoScroll(),
+        scrub: true, invalidateOnRefresh: true,
+      },
     });
-    tl.to({}, { duration: 0.6 });
-    for (let i = 0; i < n - 1; i++) {
-      const t = 0.6 + i * 1;
-      tl.to(quadri[i], { autoAlpha: 0, xPercent: -16 * verso, filter: "blur(10px)", duration: 0.5, ease: "power2.in" }, t)
-        .to(quadri[i + 1], { autoAlpha: 1, xPercent: 0, filter: "blur(0px)", duration: 0.55, ease: "power2.out" }, t + 0.2)
-        .to(voci[i], { autoAlpha: 0, y: -22, duration: 0.3, ease: "power2.in" }, t)
-        .to(voci[i + 1], { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out" }, t + 0.25)
-        .to({}, { duration: 0.25 }, t + 0.75);
+    /* ogni voce vale 1 unità di tempo: la striscia si sposta in linea retta nei 0.7 finali dell'arrivo della voce, poi tiene */
+    for (let i = 1; i < n; i++) {
+      tl.to(nastro, { x: () => verso * i * passoPx(), duration: 0.7, ease: "none" }, i - 0.7);
     }
-    tl.to({}, { duration: 0.5 });
-    /* la foto in vista respira piano con lo scroll */
+    tl.to({}, { duration: 1 }, n - 1);
+    /* la foto respira piano con lo scroll */
     $$(".lista__quadro img", sezione).forEach((im) => {
       gsap.fromTo(im, { yPercent: -5, scale: 1.12 }, {
         yPercent: 5, scale: 1.12, ease: "none",

@@ -24,9 +24,11 @@ contenuti veri dell'agriturismo. Il marchio script con i quattro girasoli
 - Tre **fasce a tutto schermo con i tagli diagonali** alternati, ognuna
   con la foto che scorre dentro il taglio
 - Manifesto rosso in maiuscolo con le parole che arrivano in sequenza
-- Due **liste appiccicose** (l'agriturismo, le camere): la foto inclinata si
-  scambia con scivolata e sfocatura mentre titolo e testo cambiano, tutto
-  legato allo scroll e reversibile; la foto in vista respira piano
+- Due **liste come "Markets we serve"** (l'agriturismo, le camere): la foto
+  inclinata resta ferma a lato e la **striscia di foto scorre in orizzontale,
+  in linea retta con lo scroll**, senza dissolvenze; i testi con le descrizioni
+  scorrono sul lato opposto sotto l'etichetta fissa; nella seconda lista la
+  striscia va nel verso contrario; la foto in vista respira piano
 - **Citazione rossa** con il taglio in alto e le righe rivelate da sinistra a destra
 - Contatti e certificazioni con alzata in sequenza, piede rosso tagliato
 - Testata fissa crema con menu a tutto schermo che si apre a cerchio;
