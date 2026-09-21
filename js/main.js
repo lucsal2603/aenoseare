@@ -142,6 +142,30 @@
     });
   });
 
+  /* ════════════ PUNTATORE: il sole segue il mouse, gira piano e accelera con lo scroll ════════════ */
+  if (!tocco) {
+    const c = $(".cursore");
+    const disegno = $(".cursore__disegno");
+    document.documentElement.classList.add("con-cursore");
+    const cx = gsap.quickTo(c, "x", { duration: 0.18, ease: "power3" });
+    const cy = gsap.quickTo(c, "y", { duration: 0.18, ease: "power3" });
+    let giro = 0;
+    gsap.ticker.add((t, dt) => {
+      const v = lenis ? Math.abs(lenis.velocity) : 0;
+      giro += (0.25 + Math.min(14, v) * 0.2) * (dt / 16.7);
+      gsap.set(disegno, { rotation: giro });
+    });
+    addEventListener("pointermove", (e) => { cx(e.clientX); cy(e.clientY); c.classList.add("visibile"); }, { passive: true });
+    document.addEventListener("pointerover", (e) => {
+      const t = e.target.closest("a, button");
+      c.classList.toggle("attivo", !!t);
+    });
+    document.addEventListener("pointerleave", () => c.classList.remove("visibile"));
+  }
+
+  /* ── la mappa di Google si attiva al primo tocco, così la rotella resta alla pagina ── */
+  $$(".mappa__velo").forEach((v) => v.addEventListener("click", () => v.classList.add("via")));
+
   /* ════════════ EROE: ingresso del palco ════════════ */
   gsap.set(".palco__logo", { autoAlpha: 0, scale: 0.96 });
   gsap.set([".palco__motto", ".palco__dove", ".palco__giu"], { autoAlpha: 0, y: 14 });

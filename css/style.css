@@ -151,6 +151,16 @@ body.menu-aperto .testata { background: transparent; transition: background 0s .
 .menu__piede { display: flex; flex-wrap: wrap; gap: 24px 64px; font-size: 14px; font-style: italic; line-height: 1.7; opacity: 0; transition: opacity .5s .3s; }
 .menu.aperto .menu__piede { opacity: 1; }
 
+/* ── puntatore: il sole del marchio, ridisegnato ── */
+.cursore { position: fixed; left: 0; top: 0; z-index: 99; pointer-events: none; opacity: 0; transition: opacity .3s; }
+.cursore.visibile { opacity: 1; }
+.cursore__sole { position: absolute; left: -15px; top: -15px; width: 30px; height: 30px; display: block; transition: transform .35s var(--ease-out); filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .28)); }
+.cursore__disegno { display: block; width: 100%; height: 100%; }
+.cursore.attivo .cursore__sole { transform: scale(1.6); }
+html.con-cursore, html.con-cursore * { cursor: none !important; }
+@media (hover: none) { .cursore { display: none; } }
+html.statico .cursore { display: none; }
+
 /* ── bottone tondo fisso in basso a sinistra ── */
 .tondo {
   position: fixed;
@@ -456,24 +466,22 @@ body.menu-aperto .testata { background: transparent; transition: background 0s .
   clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
   background: var(--crema-2);
 }
-.mappa img { width: 100%; height: auto; }
-.mappa__pin { position: absolute; left: var(--pin-x); top: var(--pin-y); width: 30px; height: 40px; transform: translate(-50%, -100%); filter: drop-shadow(0 4px 6px rgba(0, 0, 0, .25)); }
-.mappa__nome {
+.mappa { aspect-ratio: 4 / 3; }
+.mappa__google { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+/* finché non la tocchi, la mappa non ruba la rotella alla pagina */
+.mappa__velo {
   position: absolute;
-  left: var(--pin-x); top: var(--pin-y);
-  transform: translate(-50%, 8px);
-  padding: .35em .7em;
-  background: var(--rosso);
-  color: var(--crema);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  white-space: nowrap;
+  inset: 0;
+  width: 100%;
+  display: grid;
+  place-items: end center;
+  padding-bottom: 16px;
+  background: transparent;
+  cursor: pointer;
 }
+.mappa__velo span { font-size: 12px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--crema); background: var(--rosso); padding: .55em .9em; transition: opacity .3s; }
+.mappa__velo.via { display: none; }
 .mappa__nota { font-size: 14px; line-height: 1.6; }
-.mappa__nota small { font-size: 12px; color: var(--grigio); }
-.mappa__nota small a { border-bottom: 1px solid var(--linea); }
 
 /* ── contatti e certificazioni ── */
 .contatti { background: var(--crema); padding: clamp(80px, 10vw, 150px) var(--gutter) calc(var(--taglio) + clamp(40px, 6vw, 90px)); }

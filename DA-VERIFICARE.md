@@ -27,7 +27,7 @@ ecco cosa è ripreso pari pari, cosa è dedotto e cosa è inventato.
 
 ## Menù, mappa e mete (aggiunti dopo)
 - **Il menù** con prezzi e numeri degli allergeni è copiato dalla pagina Menu del sito attuale (stagionale: da riconfermare piatto per piatto prima di mostrarlo).
-- **La mappa** è un'immagine fissa fatta con i dati di OpenStreetMap, tinta nei colori del sito: il segnaposto è su via Adige a Marola (geocodifica della via, non del civico 37): controllare che il punto sia giusto. Il pulsante «Apri in Google Maps» cerca «Agriturismo Ae Noseare»; sul sito vecchio c'era una mappa Google incorporata, qui evitata perché installerebbe cookie di terzi.
+- **La mappa** è la mappa Google incorporata del sito vecchio (stessa scheda «Agriturismo AE Noseare»), voluta colorata da Lucas. Attenzione per il sito vero: l'iframe di Google installa cookie di terzi, quindi andrà caricato solo dopo il consenso nel banner (o sostituito con un'immagine). Finché non la si tocca, un velo trasparente impedisce alla mappa di catturare la rotella.
 - **Cosa visitare**: i testi sono riassunti dalla pagina del sito attuale (Marostica, Vicenza, Verona, Padova, Venezia; Bassano e Asolo nell'introduzione); le foto sono le loro, piccole (380 px).
 
 ## Dedotto o inventato da me
