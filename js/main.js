@@ -283,8 +283,8 @@
     const corsa = gsap.to(stato, { p: 1, duration: 1.5, ease: "power2.inOut", paused: true, onUpdate: disegna });
     ScrollTrigger.create({
       trigger: dentro, start: "top 88%",
-      onEnter: () => corsa.restart(),
-      onLeaveBack: () => { corsa.pause(0); stato.p = 0; disegna(); },
+      onEnter: () => corsa.play(),
+      onLeaveBack: () => corsa.reverse(),   /* risalendo, la banda torna da sinistra a destra e si riporta via il testo */
     });
     addEventListener("resize", disegna);
   })();
