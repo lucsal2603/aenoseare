@@ -383,9 +383,22 @@ html.statico .cursore { display: none; }
   display: grid;
   align-items: center;
 }
-.citazione__dentro { max-width: 760px; margin: 0 auto; text-align: center; display: grid; gap: 40px; }
+.citazione { position: relative; overflow: hidden; }
+/* il lampo: una banda crema inclinata che attraversa la sezione da destra a sinistra e si porta dietro il testo */
+.citazione__lampo {
+  position: absolute;
+  top: -12%; bottom: -12%;
+  left: 0;
+  width: 60vw;
+  background: var(--crema);
+  transform: translateX(110vw) skewX(-14deg);
+  pointer-events: none;
+  z-index: 2;
+  will-change: transform;
+}
+.citazione__dentro { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; text-align: center; display: grid; gap: 40px; will-change: clip-path; }
 .citazione__testo { font-size: clamp(18px, 1.8vw, 24px); line-height: 1.75; display: grid; gap: 2px; }
-.citazione__riga { display: block; will-change: clip-path; }
+.citazione__riga { display: block; }
 .citazione__riga--forte { font-weight: 500; }
 .citazione__nota { font-size: 14px; font-style: italic; opacity: .85; }
 
@@ -402,7 +415,7 @@ html.statico .cursore { display: none; }
 }
 
 /* ── il menù ── */
-.menu-sez { background: var(--crema); padding: clamp(80px, 10vw, 150px) var(--gutter) clamp(72px, 9vw, 130px); }
+.menu-sez { background: var(--crema); padding: clamp(80px, 10vw, 150px) var(--gutter) calc(var(--taglio) + clamp(40px, 6vw, 90px)); }
 .menu-sez__testa, .mete-sez__testa {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -536,7 +549,8 @@ html.statico .lista__quadro { aspect-ratio: 4 / 3; height: auto; }
 html.statico .lista__scorre { margin-top: 0; }
 html.statico .lista__voci { padding: 24px 0 48px; }
 html.statico .lista__voce { height: auto; padding: 0 0 28px; }
-html.statico .citazione__riga { clip-path: none !important; }
+html.statico .citazione__dentro { clip-path: none !important; }
+html.statico .citazione__lampo { display: none; }
 html.statico .manifesto .w { opacity: 1 !important; transform: none !important; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }

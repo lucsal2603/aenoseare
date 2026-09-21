@@ -265,13 +265,29 @@
     });
   });
 
-  /* ════════════ CITAZIONE: righe rivelate da sinistra a destra ════════════ */
-  $$(".citazione__riga").forEach((r, i) => {
-    gsap.fromTo(r, { clipPath: "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)" }, {
-      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", ease: "none",
-      scrollTrigger: { trigger: ".citazione__testo", start: "top " + (78 - i * 6) + "%", end: "top " + (40 - i * 6) + "%", scrub: 0.4 },
+  /* ════════════ CITAZIONE: appena arrivi, un lampo crema attraversa il rosso da destra a sinistra e lascia dietro di sé il testo ════════════ */
+  (function () {
+    const sezione = $(".citazione");
+    const lampo = $(".citazione__lampo", sezione);
+    const dentro = $(".citazione__dentro", sezione);
+    if (!sezione || !lampo || !dentro) return;
+    const stato = { p: 0 };
+    function disegna() {
+      const W = innerWidth, bw = W * 0.6;
+      const x = W - (W + bw) * stato.p;                 /* la banda va da fuori a destra (x = W) a fuori a sinistra (x = -bw) */
+      const coda = Math.max(0, Math.min(1, (x + bw) / W)); /* il bordo che si lascia dietro, in frazione di larghezza */
+      lampo.style.transform = "translateX(" + x + "px) skewX(-14deg)";
+      dentro.style.clipPath = "inset(0 0 0 " + (coda * 100).toFixed(2) + "%)";
+    }
+    disegna();
+    const corsa = gsap.to(stato, { p: 1, duration: 1.5, ease: "power2.inOut", paused: true, onUpdate: disegna });
+    ScrollTrigger.create({
+      trigger: sezione, start: "top 60%",
+      onEnter: () => corsa.restart(),
+      onLeaveBack: () => { corsa.pause(0); stato.p = 0; disegna(); },
     });
-  });
+    addEventListener("resize", disegna);
+  })();
 
   /* ════════════ REVEAL generici ════════════ */
   $$("[data-reveal]").forEach((el) => {
