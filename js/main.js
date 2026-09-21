@@ -162,8 +162,16 @@
   /* ── cursore: punto + anello, inseguimento morbido ── */
   if (!tocco) {
     const c = $(".cursore");
-    const cx = gsap.quickTo(c, "x", { duration: 0.22, ease: "power3" });
-    const cy = gsap.quickTo(c, "y", { duration: 0.22, ease: "power3" });
+    const fiore = $(".cursore__fiore svg");
+    document.documentElement.classList.add("con-cursore");
+    const cx = gsap.quickTo(c, "x", { duration: 0.2, ease: "power3" });
+    const cy = gsap.quickTo(c, "y", { duration: 0.2, ease: "power3" });
+    let giro = 0;
+    gsap.ticker.add((t, dt) => {
+      const v = lenis ? Math.abs(lenis.velocity) : 0;
+      giro += (0.3 + Math.min(14, v) * 0.22) * (dt / 16.7);
+      gsap.set(fiore, { rotation: giro });
+    });
     addEventListener("pointermove", (e) => { cx(e.clientX); cy(e.clientY); c.classList.add("visibile"); }, { passive: true });
     document.addEventListener("pointerover", (e) => {
       const t = e.target.closest("a, button, [data-cursore]");
@@ -213,12 +221,12 @@
     if (!largo) gsap.set(".eroe__foto", { clipPath: "inset(0% 0% 0% 0% round 0px)" });
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: ".eroe", start: "top top", end: "+=130%", pin: true, scrub: 0.6, anticipatePin: 1,
+        trigger: ".eroe", start: "top top", end: "+=130%", pin: true, scrub: 0.6, anticipatePin: 1, invalidateOnRefresh: true,
         onUpdate(self) { document.body.classList.toggle("tema-scuro", self.progress < 0.7); },
       },
     });
     if (largo) {
-      tl.to(".eroe__foto", { scale: 0.42, transformOrigin: "100% 40%", ease: "power2.inOut", duration: 0.9 }, 0)
+      tl.to(".eroe__foto", { scale: 0.42, x: () => -$(".eroe__testo").getBoundingClientRect().left, transformOrigin: "100% 40%", ease: "power2.inOut", duration: 0.9 }, 0)
         .to(".eroe__velo", { autoAlpha: 0, duration: 0.2 }, 0.55)
         .to(".eroe", { backgroundColor: CARTA, ease: "power1.inOut", duration: 0.14 }, 0.66)
         .to(".eroe__testo", { color: INCHIOSTRO, duration: 0.05, ease: "none" }, 0.7)
@@ -241,7 +249,7 @@
   const paroleManifesto = spezzaParole($(".manifesto p"));
   gsap.to(paroleManifesto, {
     opacity: 1, stagger: 0.05, ease: "none",
-    scrollTrigger: { trigger: ".manifesto", start: "top top", end: "+=120%", pin: true, scrub: 0.4, anticipatePin: 1 },
+    scrollTrigger: { trigger: ".manifesto", start: "top top", end: "+=100%", scrub: 0.4 },
   });
 
   /* ════════════ L'AIA: parole di traverso, binari, foto sfalsate ════════════ */
