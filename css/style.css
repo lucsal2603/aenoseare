@@ -298,14 +298,15 @@ body.menu-aperto .testata { background: transparent; }
 .lista__quadro img { width: 100%; height: 100%; object-fit: cover; will-change: transform; }
 .lista--foto-sx .lista__quadro { clip-path: polygon(0 0, 87% 0, 100% 100%, 13% 100%); }
 .lista--foto-dx .lista__quadro { clip-path: polygon(13% 0, 100% 0, 87% 100%, 0 100%); }
+/* l'etichetta sta su una fascia crema che copre tutta la colonna dall'alto: i testi che salgono spariscono lì sotto, 28px prima di toccarla */
 .lista__etichetta {
   align-self: start;
-  margin-top: 14svh;
-  padding: 10px 0;
+  width: 100%;
+  margin: 0;
+  padding: 14svh 0 28px;
   background: var(--crema);
-  width: max-content;
 }
-.lista--foto-dx .lista__etichetta { justify-self: end; margin-right: max(0px, calc((100% - 440px) / 2)); }
+.lista--foto-dx .lista__etichetta { padding-left: max(0px, calc(100% - 440px)); }
 .lista__scorre {
   position: relative;
   z-index: 1;
@@ -347,11 +348,11 @@ body.menu-aperto .testata { background: transparent; }
     align-content: start;
     gap: 14px;
     padding-top: 12px;
-    background: linear-gradient(var(--crema) 0 calc(38svh + 68px), transparent calc(38svh + 68px));
+    background: linear-gradient(var(--crema) 0 calc(38svh + 104px), transparent calc(38svh + 104px));
   }
   .lista__finestra { height: 38svh; order: 1; }
-  .lista__etichetta { order: 2; margin: 0; padding: 4px 0; }
-  .lista--foto-dx .lista__etichetta { justify-self: start; margin-right: 0; }
+  .lista__etichetta { order: 2; padding: 4px 0; background: transparent; }
+  .lista--foto-dx .lista__etichetta { padding-left: 0; }
   .lista__scorre { grid-template-columns: 1fr; }
   .lista__voci, .lista--foto-dx .lista__voci { grid-column: 1; max-width: none; margin-left: 0; padding: calc(38svh + 156px) 0 10svh; }
   .lista__voce { height: auto; min-height: var(--passo); padding: 0 0 6svh; justify-content: flex-start; }
