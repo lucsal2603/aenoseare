@@ -1,56 +1,78 @@
 # Da verificare con Claudia (Ae Noseare)
 
-Bozza costruita sui contenuti del sito attuale (aenoseare.it, WordPress del
-2017) e sulle email del 15-16 settembre 2026. Prima di mostrare o pubblicare,
-ecco cosa è ripreso pari pari, cosa è dedotto e cosa è inventato.
+Terza bozza (23 settembre 2026), costruita sui testi e sulle foto del sito
+attuale aenoseare.it (pagine e libreria delle immagini) e sui volantini che
+pubblicano lì. Ecco cosa è ripreso pari pari, cosa è dedotto e cosa è scelto
+da me.
 
 ## Ripreso dal sito attuale (da riconfermare, potrebbe essere vecchio)
 | Dove | Valore usato | Fonte |
 |---|---|---|
-| Giorni della cucina | venerdì e sabato a cena, domenica a pranzo; feriali su prenotazione | pagina Cucina |
-| Prezzi camere | singola da 50 €, doppia da 75 €, tripla da 95 €, colazione compresa | pagina Camere (dichiarati "indicativi") |
-| Numero camere e dotazioni | 9 camere, bagno privato, aria condizionata, riscaldamento indipendente, TV; sala lettura, parcheggio, parco | pagina Camere |
-| Colazione | caffè, latte, brioches, marmellate, pane, fette biscottate, yogurt, frutta | pagina Camere |
-| CIN | IT024108B5LCCL9FAR | pagina Camere |
+| Giorni della cucina | venerdì e sabato a cena, domenica a pranzo; in settimana solo su prenotazione | pagine Cucina e Menù |
+| Menù alla carta di settembre | tutti i piatti, i prezzi e i numeri degli allergeni | pagina Menù (aggiornata a settembre 2026) |
+| Prezzi camere | singola da 50 €, doppia da 75 €, tripla da 95 €, quadrupla da 110 €, colazione compresa, "escluse fiere dell'oro" | pagina Camere |
+| Camere e dotazioni | 9 camere, bagno privato, aria condizionata, riscaldamento indipendente, tv color; sala lettura, parcheggio, parco giochi | pagina Camere |
+| Colazione | caffè, latte, brioches, marmellate varie, pane, fette biscottate, yogurt, frutta fresca | pagina Camere |
 | Anni | azienda agricola dal 1970, agriturismo dal 2002 | pagine Fattoria e Agriturismo |
-| Famiglia | Antonietta e Mario; Andrea (cucina), Claudia (sala), Mattia (griglia), Michela (centri estivi) | pagine Home, Cucina, Fattoria |
-| Animali | galline, cavalla Cometa, asinelli, mucche e vitellini, capre, oche, maiali, pavoni, tacchini, pony Otto | pagina Fattoria |
-| Fattoria didattica | accreditata Regione Veneto, percorsi dai 3 anni; centri estivi 6-12 anni | pagina Fattoria |
-| Spaccio | formaggi, sopresse, salami, pancette, pasta fresca, confetture; distributore Latterie Vicentine; latte 1,20 € | pagina Spaccio |
-| Piatti "dal menù" | bigoli con ragù d'anatra, tortelli di zucca, maccheroni al radicchio e salsiccia, zuppa dell'orto, antipasto della casa | pagina Menu (senza prezzi, di proposito) |
-| Distanze | circa 8 km / 10 minuti dal centro di Vicenza; casello Vicenza Est | pagine Agriturismo e Cosa visitare |
-| Recapiti | via Adige 37, Marola, 36040 Torri di Quartesolo (VI); 0444 910305; 345 3229902; noseare@gmail.com | Home e Contatti |
-| Ragione sociale | Azienda Agrituristica Nicolin e Zambello S.S., P.IVA 02965890243 | piede del sito attuale |
-| Social | Facebook agriaenoseare, Instagram agriturismoaenoseare, TripAdvisor | piede del sito attuale |
-| Motto | «Mangiare sano, naturalmente» | slider della home |
+| Famiglia | Antonietta e Mario con Andrea, Claudia e Mattia; Andrea e Antonietta in cucina, Mattia alla griglia, Claudia in sala; Claudia e Michela per i centri estivi | Home, Cucina, Fattoria |
+| Animali | galline, la cavalla Cometa, asinelli, mucche e vitellini, capre, oche, maiali, pavoni, tacchini, il pony Otto | pagina Fattoria |
+| Fattoria didattica | accreditata dalla Regione del Veneto, percorsi dai 3 anni; centri estivi e settimane verdi 6-12 anni | pagina Fattoria |
+| L'anno in campagna | aprile la semina; maggio, giugno e luglio il taglio dell'erba che diventerà fieno; settembre la trebbiatura del mais | pagina Fattoria |
+| Spaccio e distributore | formaggi, sopresse, salami, pancette, pasta fresca, confetture; distributore Latterie Vicentine; latte a 1,20 € a bottiglia | pagina Spaccio |
+| Distanze | circa 8 km dal centro di Vicenza (10 minuti), casello Vicenza Est, bus a 5 minuti, stazione di Lerino, Padova 20 minuti, Verona 45 | pagine Agriturismo e Cosa visitare |
 | Regola | nel ristorante non sono ammessi animali | Home |
+| Recapiti e dati | via Adige 37, Marola, 36040 Torri di Quartesolo (VI); 0444 910305; 345 3229902; noseare@gmail.com; CIN IT024108B5LCCL9FAR; Azienda Agrituristica Nicolin e Zambello S.S., P.IVA 02965890243 | Home, Contatti, Camere, piede |
 
-## Menù, mappa e mete (aggiunti dopo)
-- **Il menù** con prezzi e numeri degli allergeni è copiato dalla pagina Menu del sito attuale (stagionale: da riconfermare piatto per piatto prima di mostrarlo).
-- **La mappa** è la mappa Google incorporata del sito vecchio (stessa scheda «Agriturismo AE Noseare»), voluta colorata da Lucas. Attenzione per il sito vero: l'iframe di Google installa cookie di terzi, quindi andrà caricato solo dopo il consenso nel banner (o sostituito con un'immagine). Finché non la si tocca, un velo trasparente impedisce alla mappa di catturare la rotella.
-- **Cosa visitare**: i testi sono riassunti dalla pagina del sito attuale (Marostica, Vicenza, Verona, Padova, Venezia; Bassano e Asolo nell'introduzione); le foto sono le loro, piccole (380 px).
+## Dedotto dai volantini (da confermare)
+- **Orari del punto vendita**: "solo le mattine, dal lunedì al sabato, dalle
+  8:30 alle 12" e "distributore aperto h24 tutti i giorni" vengono dal volantino
+  di luglio 2026 ("Buona estate!"): potrebbero essere gli orari estivi. La
+  frase "adesso è aperto / chiuso" nello spaccio li usa in tempo reale.
+- **Cene a tema**: zucca, gnocchi, bollito misto, ossi de mas'ciò, carnevale,
+  San Valentino, asparagi, venerdì in musica sono i titoli dei volantini dal
+  2022 al 2026. La frase "di stagione in stagione, il venerdì sera, menù fisso,
+  solo con prenotazione del tavolo" riassume quello che c'è scritto sui
+  volantini: va chiesto se tornano ogni anno.
 
-## Dedotto o inventato da me
-- **«Il nome sono i noci»** (README): "noseare" in dialetto dovrebbe essere il plurale di noce; non compare sul sito, chiedere.
-- **«I dolci escono dal loro forno»** (manifesto): il sito dice solo "dolci tutti fatti in casa".
-- **«Singole, doppie e triple, alcune in mansarda con le travi a vista»**: dedotto dalle foto e dal listino, da confermare.
-- **Manifesto** («Coltiviamo e alleviamo quello che portiamo in tavola…»): riformula la pagina Cucina del sito attuale.
-- **«Vi accompagniamo in stazione»**: sul sito c'è, ma è vincolato a "se necessario e avvisandoci per tempo" (l'ho scritto).
-- **Link delle certificazioni** (mia scelta, sul sito attuale non funzionano): Agriturismo Italia → agriturismoitalia.gov.it; Campagna Amica → campagnamica.it; Fattorie Didattiche → pagina della Regione Veneto; Land of Venice → veneto.eu; MIPAAFT → masaf.gov.it (il ministero ha cambiato nome); Terranostra → terranostra.it. Da confermare che siano i siti giusti.
-- **Marchio dei girasoli** nell'aia e nel piede: preso dal sito attuale (versione bianca, 512 px): serve il file originale.
+## Scelto o inventato da me
+- **Legenda degli allergeni**: sul sito ci sono solo i numeri; ho messo la
+  numerazione del regolamento europeo (1 glutine, 3 uova, 7 latte, 12 solfiti…).
+  Chiedere se usano proprio quella.
+- **Foto accanto ai piatti** (anteprima nel menù e specialità): "Antipasto della
+  casa" usa la foto del piatto con sopressa, pancetta e polenta del 2020;
+  "Tagliata" usa la foto della tagliata con le patate duchessa (il menù di oggi
+  dice con rucola, pomodorini e polenta); "Carne ai ferri" e "Grigliata" usano
+  la foto della griglia. Da sostituire con foto dei piatti di adesso.
+- **"Chicchirichì!"**: il gallo dell'illustrazione e la sua battuta sono miei;
+  l'illustrazione (portico ad archi, campo di lavanda, noci) è una scena
+  stilizzata, non il loro edificio.
+- **Le letture accanto ai livelli** (ven, sab, dom / 9 camere / dal 1970 /
+  latte h24) sono ricavate dai dati sopra; i livelli colorati invece sono
+  decorativi, non misurano niente. Le barre dei prezzi delle camere sono in
+  proporzione ai prezzi veri.
+- **Link delle certificazioni** (sul sito attuale non funzionano): Fattorie
+  didattiche → pagina della Regione Veneto; Agriturismo Italia →
+  agriturismoitalia.gov.it; Campagna Amica → campagnamica.it; Terranostra →
+  terranostra.it; Land of Venice → veneto.eu; MIPAAFT → masaf.gov.it (il
+  ministero ha cambiato nome). Da confermare.
+- **Frasi di raccordo** scritte da me partendo dai loro testi: "Latte e
+  derivati, a qualsiasi ora", "Se dormite da noi", "Prenota un tavolo / Dormi
+  in campagna", "A tavola!", "Seguiteci su Instagram", "Buongiorno!".
 
-## Foto e marchio
-Tutte le foto vengono dal sito attuale e sono piccole (1000-1900 px, del 2018-2020);
-nella nuvola dell'apertura e nei riquadri grandi si vede. Per il sito vero servono
-scatti nuovi. Manca del tutto, segnata in pagina con il riquadro tratteggiato
-«foto da fare»: la colazione di Antonietta apparecchiata.
-Altre foto utili: Cometa e Otto nel prato, una classe in visita, la casetta dello
-spaccio e il distributore del latte, la famiglia al completo, la sala con più luce.
-Il marchio con i quattro girasoli è un PNG di 512 px preso dal sito attuale e tinto
-di rosso: serve il file originale (vettoriale o grande) per la stampa nitida.
+## Foto
+Tutte dal sito attuale: quelle del 2018 (cucina, camere, città), del 2019
+(camere), del 2020 (galline e gallo, capre, crostata, giardino) e del 2022
+(campo e olio di lavanda). Sono piccole: le cartoline delle città sono di
+380 px e la casa di sera di 351 px, quindi restano piccole in pagina.
+Mancano: Cometa e Otto, le mucche, la casetta dello spaccio e il distributore,
+la sala apparecchiata con luce, la colazione, la famiglia. Il logo nel piede è
+il PNG di 512 px del sito attuale: per la stampa serve il file originale.
 
 ## Prima di pubblicare sul dominio
 - togliere `noindex` e riaprire `robots.txt`
-- pagine privacy e cookie (la bozza non ne ha; non ci sono tracciamenti né cookie)
-- scegliere se tenere l'invio email o passare a un modulo
-- verificare i prezzi delle camere e i giorni della cucina di questa stagione
+- pagine privacy e cookie (la bozza non ha tracciamenti né mappe incorporate:
+  il link "apri la mappa" porta a Google Maps)
+- caricare font e librerie dal proprio server invece che da Google Fonts e
+  jsDelivr (per il GDPR, i font di Google trasmettono l'IP del visitatore)
+- riverificare menù, prezzi delle camere, giorni della cucina e orari dello
+  spaccio della stagione
