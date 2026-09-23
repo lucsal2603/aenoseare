@@ -47,6 +47,15 @@ per il nome, stretto e corsivo per i titoli, come il GT Walsheim Condensed di
 dkton), **Geist Mono** per le etichette tra parentesi, **Borel** per la
 scritta a mano.
 
+## Logo e musica
+Nell'apertura c'è il loro logo, ricalcato in vettoriale dal PNG del sito attuale
+con i quattro girasoli ridisegnati, e si scrive da sinistra a destra.
+In alto a sinistra il pulsante della musica: le barrette ballano con l'audio vero
+(analizzatore Web Audio) e al clic si apre il pannellino con titolo, autore,
+fonte, avanzamento e i comandi indietro, pausa e avanti. Dodici brani senza
+diritti in `audio/`, in ordine casuale senza ripetizioni; la musica parte al
+primo clic sulla pagina. Licenze e brani esclusi in `DA-VERIFICARE.md`.
+
 ## Sezioni
 Alba, eroe illustrato, chi siamo, cosa trovate (livelli), la fattoria
 (animali, fattoria didattica, centri estivi, l'anno in campagna con il mese in

@@ -49,6 +49,10 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 ::selection { background: var(--girasole); color: var(--notte); }
 :focus-visible { outline: 2px solid var(--girasole); outline-offset: 3px; border-radius: 4px; }
 .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.logo { display: block; overflow: visible; }
+.logo__scritta { color: #fff; }
+.logo__sole { transform-box: fill-box; transform-origin: 50% 50%; }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-stopped { overflow: hidden; }
@@ -252,7 +256,7 @@ html.di-sera .cursore__ombra { cx: 6px; }
 }
 .testata > * { pointer-events: auto; }
 .testata.nascosta { transform: translateY(-140%); }
-.testata__oggi, .testata__marchio, .testata__voci, .testata__apri {
+.testata__musica, .musica__pannello, .testata__marchio, .testata__voci, .testata__apri {
   --fondo: rgba(255, 255, 255, .62);
   --bordo: rgba(19, 44, 67, .12);
   background: var(--fondo);
@@ -262,38 +266,51 @@ html.di-sera .cursore__ombra { cx: 6px; }
   border-radius: 12px;
   transition: background-color .5s, border-color .5s, color .5s;
 }
-.testata[data-tema="sera"] :is(.testata__oggi, .testata__marchio, .testata__voci, .testata__apri),
-.testata[data-tema="notte"] :is(.testata__oggi, .testata__marchio, .testata__voci, .testata__apri) {
+.testata[data-tema="sera"] :is(.testata__musica, .musica__pannello, .testata__marchio, .testata__voci, .testata__apri),
+.testata[data-tema="notte"] :is(.testata__musica, .musica__pannello, .testata__marchio, .testata__voci, .testata__apri) {
   --fondo: rgba(24, 17, 12, .78);
   --bordo: rgba(255, 255, 255, .09);
   color: #fff;
 }
-.testata__oggi {
-  position: relative;
-  width: 50px; height: 50px;
-  display: grid; place-items: center;
+/* la musica: il pulsante con le barrette e il pannellino dei comandi */
+.musica { position: relative; }
+.testata__musica { position: relative; width: 50px; height: 50px; display: grid; place-items: center; transition: background-color .5s, border-color .5s, color .5s, transform .16s var(--ease-out); }
+.testata__musica:active { transform: scale(.95); }
+.musica__barre { display: flex; align-items: center; gap: 2.5px; height: 20px; }
+.musica__barre i { width: 3px; height: 100%; border-radius: 2px; background: currentColor; opacity: .45; transform: scaleY(.25); transform-origin: 50% 50%; will-change: transform; }
+.musica.suona .musica__barre i { opacity: 1; background: linear-gradient(180deg, var(--girasole), var(--arancio)); }
+.musica__pannello {
+  --fondo: rgba(255, 255, 255, .9);
+  position: absolute; top: calc(100% + 10px); left: 0; z-index: 2;
+  width: min(300px, calc(100vw - 2 * var(--margine)));
+  padding: 16px 16px 14px;
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(19, 44, 67, .16);
+  opacity: 0; visibility: hidden;
+  transform: translateY(-6px) scale(.96); transform-origin: 24px 0;
+  transition: opacity .22s var(--ease-out), transform .22s var(--ease-out), visibility 0s linear .22s, background-color .5s, border-color .5s, color .5s;
 }
-.oggi__barre { display: flex; align-items: center; gap: 2px; height: 18px; }
-.oggi__barre i {
-  width: 3px; height: calc(var(--h, .3) * 100%);
-  border-radius: 2px;
-  background: currentColor; opacity: .35;
-  transform-origin: 50% 50%;
-}
-.oggi__barre i.aperto { opacity: 1; background: var(--arancio); }
-.oggi__barre i.oggi { opacity: 1; background: var(--girasole); }
-.oggi__testo {
-  position: absolute; top: calc(100% + 10px); left: 0;
-  width: max-content; max-width: 260px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  background: var(--notte); color: #fff;
-  font-family: var(--f-mono); font-weight: 300; font-size: 12px; line-height: 1.5;
-  opacity: 0; transform: translateY(-4px) scale(.97); transform-origin: 10% 0;
-  transition: opacity .2s var(--ease-out), transform .2s var(--ease-out);
-  pointer-events: none;
-}
-.testata__oggi:hover .oggi__testo, .testata__oggi:focus-visible .oggi__testo { opacity: 1; transform: none; }
+.testata[data-tema="sera"] .musica__pannello, .testata[data-tema="notte"] .musica__pannello { --fondo: rgba(24, 17, 12, .94); box-shadow: 0 18px 40px rgba(0, 0, 0, .45); }
+.musica.aperto .musica__pannello { opacity: 1; visibility: visible; transform: none; transition: opacity .22s var(--ease-out), transform .22s var(--ease-out), visibility 0s, background-color .5s, border-color .5s, color .5s; }
+.musica__stato { margin: 0 0 8px; font-family: var(--f-mono); font-weight: 400; font-size: 11px; color: var(--teal); }
+.musica__stato::before { content: "[ "; } .musica__stato::after { content: " ]"; }
+.testata[data-tema="sera"] .musica__stato, .testata[data-tema="notte"] .musica__stato { color: var(--girasole); }
+.musica__titolo { margin: 0; font-weight: 900; font-style: italic; font-stretch: 72%; text-transform: uppercase; font-size: 25px; line-height: .95; }
+.musica__autore { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin: 7px 0 0; font-family: var(--f-mono); font-weight: 300; font-size: 12px; line-height: 1.4; }
+.musica__fonte { flex: none; opacity: .72; transition: opacity .2s, color .2s; }
+@media (hover: hover) and (pointer: fine) { .musica__fonte:hover { opacity: 1; color: var(--arancio); } }
+.musica__barra { position: relative; height: 3px; margin: 14px 0 13px; border-radius: 2px; background: rgba(19, 44, 67, .14); overflow: hidden; }
+.testata[data-tema="sera"] .musica__barra, .testata[data-tema="notte"] .musica__barra { background: rgba(255, 255, 255, .14); }
+.musica__barra b { position: absolute; inset: 0; background: var(--girasole); transform: scaleX(var(--pos, 0)); transform-origin: 0 50%; transition: transform .3s linear; }
+.musica__comandi { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.musica__tasto { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 10px; border: 1px solid var(--bordo); transition: transform .15s var(--ease-out), background-color .25s; }
+.musica__tasto svg { width: 20px; height: 20px; fill: currentColor; }
+.musica__tasto:active { transform: scale(.93); }
+.musica__tasto--play { width: 56px; height: 52px; border: 0; background: var(--girasole); color: var(--notte); }
+.musica__tasto--play svg { width: 24px; height: 24px; }
+.musica__tasto--play .icona-pausa, .musica.suona .musica__tasto--play .icona-play { display: none; }
+.musica.suona .musica__tasto--play .icona-pausa { display: block; }
+@media (hover: hover) and (pointer: fine) { .musica__tasto:not(.musica__tasto--play):hover { background: rgba(255, 184, 0, .18); } .musica__tasto--play:hover { background: #ffc52e; } }
 .testata__centro { display: flex; gap: 6px; }
 .testata__marchio { width: 50px; height: 50px; display: grid; place-items: center; }
 .testata__marchio svg { width: 30px; height: 30px; fill: var(--arancio); }
@@ -387,18 +404,10 @@ html.di-sera .cursore__ombra { cx: 6px; }
   position: absolute; left: 0; right: 0; top: calc(var(--testata-h) + 2.2vh);
   text-align: center; pointer-events: none;
 }
-.eroe__titolo h1 { margin: 0; filter: drop-shadow(0 0 22px rgba(255, 255, 255, .5)) drop-shadow(0 4px 14px rgba(19, 44, 67, .08)); }
-.eroe__nome {
-  display: block;
-  font-weight: 900; font-stretch: 125%;
-  text-transform: uppercase;
-  font-size: calc(var(--u) * 8.8);
-  line-height: 1;
-  letter-spacing: -.005em;
-  color: #fff;
-}
+.eroe__titolo h1 { margin: 0; }
+.eroe .logo { width: calc(var(--u) * 40); height: auto; margin: 0 auto; filter: drop-shadow(0 1px 1.5px rgba(19, 44, 67, .32)) drop-shadow(0 10px 26px rgba(19, 44, 67, .16)); }
 .eroe__sotto {
-  display: block; margin-top: calc(var(--u) * 2.2);
+  display: block; margin-top: calc(var(--u) * .6);
   font-weight: 700; font-stretch: 125%;
   text-transform: uppercase;
   font-size: clamp(11px, calc(var(--u) * .95), 15px);
@@ -406,7 +415,7 @@ html.di-sera .cursore__ombra { cx: 6px; }
   color: var(--teal);
 }
 .eroe__corsivo {
-  position: absolute; left: 0; right: 0; top: 41%;
+  position: absolute; left: 0; right: 0; top: 46%;
   margin: 0; text-align: center; pointer-events: none;
   font-family: var(--f-corsivo);
   font-size: calc(var(--u) * 4.5);
@@ -417,8 +426,8 @@ html.di-sera .cursore__ombra { cx: 6px; }
 .eroe__corsivo span { display: inline-block; padding: 0 .2em .1em; }
 .palla { position: absolute; display: block; }
 .palla svg { width: 100%; height: auto; overflow: visible; display: block; }
-.palla--sole { width: calc(var(--u) * 12); left: calc(50% - 33 * var(--u)); top: calc(56% - 15.7 * var(--u)); }
-.palla--lavanda { width: calc(var(--u) * 10); left: calc(50% + 21 * var(--u)); top: calc(57% - 5 * var(--u)); }
+.palla--sole { width: calc(var(--u) * 12); left: calc(50% - 33 * var(--u)); top: calc(64% - 15.7 * var(--u)); }
+.palla--lavanda { width: calc(var(--u) * 10); left: calc(50% + 21 * var(--u)); top: calc(61% - 5 * var(--u)); }
 .palla__alone { fill: rgba(255, 246, 200, .5); filter: blur(8px); }
 .palla__disco { filter: drop-shadow(0 8px 16px rgba(19, 44, 67, .16)); }
 .palla__scritta {
@@ -493,21 +502,16 @@ html.di-sera .cursore__ombra { cx: 6px; }
 .livello { border-bottom: 1px solid rgba(255, 255, 255, .14); }
 .livello__scena { position: relative; display: block; height: clamp(96px, 13.4vw, 204px); overflow: hidden; --p: 0; }
 .livello__riempi { position: absolute; inset: 0; background: var(--c); transform-origin: 0 50%; transform: scaleX(var(--p)); }
-.livello__parole { position: absolute; inset: 0; display: flex; align-items: center; overflow: hidden; }
+.livello__parole { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .livello__parole--sotto { color: #fff; }
 .livello__parole--sopra { color: var(--inchiostro-su); clip-path: inset(0 calc((1 - var(--p)) * 100%) 0 0); }
-.livello__binario {
-  display: flex; gap: .3em; white-space: nowrap;
+.livello__parole b {
+  white-space: nowrap;
   font-weight: 900; font-style: italic; font-stretch: 72%;
   text-transform: uppercase;
   font-size: clamp(84px, 12.6vw, 196px);
   line-height: 1;
-  transform: translateX(var(--x, 0px));
-  will-change: transform;
 }
-.livello__binario b { font-weight: inherit; transition: opacity .5s var(--ease-out); }
-.livello__binario b:not(:nth-child(3)) { opacity: 0; }
-@media (hover: hover) and (pointer: fine) { .livello__scena:hover .livello__binario b { opacity: 1; } }
 .livello__lettura {
   position: absolute; top: 50%; left: calc(var(--p) * 100%);
   transform: translate(12px, -50%);
@@ -907,8 +911,8 @@ html.di-sera .cursore__ombra { cx: 6px; }
 /* ---------- TELEFONO ---------- */
 @media (max-width: 900px) {
   :root { --testata-h: 68px; }
-  .testata { padding: 10px var(--margine); align-items: center; }
-  .testata__oggi { display: none; }
+  .testata { padding: 10px var(--margine); align-items: center; gap: 8px; }
+  .testata__musica { width: 46px; height: 46px; }
   .testata__voci { display: none; }
   .testata__marchio { width: 46px; height: 46px; }
   .testata__prenota { height: 46px; min-width: 0; padding: 0 20px; font-size: 17px; margin-left: auto; margin-right: 8px; }
@@ -925,7 +929,7 @@ html.di-sera .cursore__ombra { cx: 6px; }
 @media (max-width: 700px) {
   .eroe { min-height: 600px; }
   .eroe__titolo { top: calc(var(--testata-h) + 3.5vh); }
-  .eroe__nome { font-size: 13.4vw; font-stretch: 100%; }
+  .eroe .logo { width: 78vw; }
   .eroe__sotto { font-size: 2.35vw; letter-spacing: .12em; margin-top: 12px; }
   .eroe__corsivo { font-size: 9.4vw; top: 33%; }
   .arco--1, .arco--5, .noce--sx2 { display: none; }
@@ -947,7 +951,7 @@ html.di-sera .cursore__ombra { cx: 6px; }
   .manifesto__testo { max-width: none; font-size: 8.3vw; line-height: 1.04; }
 
   .livello__scena { height: 21vw; }
-  .livello__binario { font-size: 18.4vw; }
+  .livello__parole b { font-size: 18.4vw; }
   .livello__lettura { font-size: 10px; }
 
   .titolone { font-size: 15.6vw; }

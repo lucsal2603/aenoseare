@@ -40,7 +40,6 @@
   const vaiA = (y) => { if (lenis) lenis.scrollTo(y, { immediate: true, force: true }); else window.scrollTo(0, typeof y === 'number' ? y : y.getBoundingClientRect().top + scrollY); };
 
   /* ---------------- ora di Roma ---------------- */
-  const GIORNI = ['domenica', 'lunedì', 'martedì', 'mercoledì', 'giovedì', 'venerdì', 'sabato'];
   const MESI = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'];
   function adesso() {
     const parti = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Rome', weekday: 'short', hour: '2-digit', minute: '2-digit', month: 'numeric', year: 'numeric', hour12: false }).formatToParts(new Date());
@@ -51,26 +50,168 @@
   const ora = adesso();
   $$('.anno-corrente').forEach((el) => { el.textContent = ora.anno; });
 
-  /* la settimana della cucina nella testata */
-  (function settimana() {
-    const barre = $$('.oggi__barre i');
-    const altezze = [0.34, 0.34, 0.34, 0.34, 0.86, 1, 0.74]; /* lun ... dom */
-    barre.forEach((b, i) => {
-      b.style.setProperty('--h', altezze[i]);
-      if (i >= 4) b.classList.add('aperto');
-      if ((i + 1) % 7 === ora.g) b.classList.add('oggi');
-    });
-    const oggi = GIORNI[ora.g];
-    let frase;
-    if (ora.g === 5 || ora.g === 6) frase = `Oggi è ${oggi}: la cucina è aperta a cena.`;
-    else if (ora.g === 0) frase = 'Oggi è domenica: la cucina è aperta a pranzo.';
-    else frase = `Oggi è ${oggi}: in settimana la cucina apre solo su prenotazione.`;
-    $('.oggi__testo').textContent = `${frase} Venerdì e sabato a cena, domenica a pranzo.`;
-    if (!STATICO) {
-      barre.forEach((b, i) => {
-        gsap.to(b, { scaleY: () => gsap.utils.random(0.55, 1.15), duration: gsap.utils.random(0.35, 0.6), repeat: -1, yoyo: true, repeatRefresh: true, ease: 'sine.inOut', delay: i * 0.05 });
-      });
+  /* ---------------- la musica di campagna, in alto a sinistra ---------------- */
+  (function musica() {
+    const BRANI = [
+      { file: 'happy-friends.mp3', titolo: 'Happy Friends', autore: 'SoundHills', fonte: 'https://hypeddit.com/fvkvmv' },
+      { file: 'cheerful-acoustic.mp3', titolo: 'Cheerful Acoustic', autore: 'Wavecont', fonte: 'https://hypeddit.com/29ie04' },
+      { file: 'inspiring-uke.mp3', titolo: 'Inspiring Uke', autore: 'Wavecont', fonte: 'https://hypeddit.com/xxn396' },
+      { file: 'sunset-beach.mp3', titolo: 'Sunset Beach', autore: 'Pro Tunes', fonte: 'https://hypeddit.com/wgfpn8' },
+      { file: 'happy-whistle.mp3', titolo: 'Happy Whistle', autore: 'SoundHills', fonte: 'https://hypeddit.com/eieuie' },
+      { file: 'happy-farm-infraction.mp3', titolo: 'Happy Farm', autore: 'Infraction, Inaudio', fonte: 'https://inaudio.org/track/happy-farm-comedy-orchestra/' },
+      { file: 'vlog-pop.mp3', titolo: 'Vlog Pop', autore: 'Stock-Waves', fonte: 'https://hypeddit.com/jqs7u4' },
+      { file: 'fun-on-the-farm.mp3', titolo: 'Fun On The Farm', autore: 'Purple Planet Music', fonte: 'https://www.purple-planet.com' },
+      { file: 'vlog-backing.mp3', titolo: 'Vlog Backing', autore: 'Stock-Waves', fonte: 'https://hypeddit.com/maxgq1' },
+      { file: 'happy-farm-umbrtone.mp3', titolo: 'Happy Farm', autore: 'UmbrTone', fonte: 'https://hypeddit.com/track/qnl7al' },
+      { file: 'old-macdonald.mp3', titolo: 'Old MacDonald Had a Farm', autore: 'Pixels', fonte: 'https://www.youtube.com/watch?v=3pZ0iN8_M5w' },
+      { file: 'the-farm-gcore.mp3', titolo: 'The Farm', autore: 'GCORE', fonte: 'https://www.youtube.com/watch?v=xwCElgqlsMU' },
+    ];
+    const box = $('#musica'); if (!box) return;
+    const bottone = $('.testata__musica', box), pannello = $('.musica__pannello', box);
+    const titolo = $('.musica__titolo', box), chi = $('.musica__chi', box), fonte = $('.musica__fonte', box);
+    const stato = $('.musica__stato', box), barra = $('.musica__barra', box), tastoPlay = $('[data-azione="play"]', box);
+    const barre = $$('.musica__barre i', box);
+    const audio = new Audio();
+    audio.preload = 'auto';
+    const VOLUME = 0.6, CHIAVE = 'aenoseare-musica';
+    let ctx = null, guadagno = null, analisi = null, dati = null;
+    let storia = [], punto = -1, sacco = [], suona = false, avviata = false, errori = 0;
+    const leggi = () => { try { return localStorage.getItem(CHIAVE); } catch (e) { return null; } };
+    const scrivi = (v) => { try { if (v) localStorage.setItem(CHIAVE, v); else localStorage.removeItem(CHIAVE); } catch (e) { /* niente */ } };
+
+    /* ordine casuale: un sacco rimescolato, mai lo stesso brano due volte di fila */
+    function mescola(escludi) {
+      const a = BRANI.map((_, i) => i).filter((i) => i !== escludi);
+      for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+      return a;
     }
+    function prossimo() { if (!sacco.length) sacco = mescola(storia[punto]); return sacco.shift(); }
+
+    function grafo() {
+      if (ctx) return;
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      try {
+        ctx = new AC();
+        const sorgente = ctx.createMediaElementSource(audio);
+        guadagno = ctx.createGain(); guadagno.gain.value = 0;
+        analisi = ctx.createAnalyser(); analisi.fftSize = 64; analisi.smoothingTimeConstant = 0.8;
+        dati = new Uint8Array(analisi.frequencyBinCount);
+        sorgente.connect(guadagno); guadagno.connect(analisi); analisi.connect(ctx.destination);
+      } catch (e) { ctx = null; guadagno = null; analisi = null; }
+    }
+    function volume(v, t) {
+      if (guadagno) {
+        const g = guadagno.gain, n = ctx.currentTime;
+        g.cancelScheduledValues(n); g.setValueAtTime(g.value, n); g.linearRampToValueAtTime(v, n + t);
+      } else audio.volume = v;
+    }
+    function aggiorna() {
+      box.classList.toggle('suona', suona);
+      tastoPlay.setAttribute('aria-label', suona ? 'Pausa' : 'Riproduci');
+      stato.textContent = suona ? 'in riproduzione' : (avviata ? 'in pausa' : 'musica di campagna');
+      if ('mediaSession' in navigator) navigator.mediaSession.playbackState = suona ? 'playing' : 'paused';
+    }
+    function carica(i) {
+      const b = BRANI[i];
+      audio.src = `audio/${b.file}`;
+      titolo.textContent = b.titolo;
+      chi.textContent = b.autore;
+      fonte.href = b.fonte; fonte.hidden = false;
+      barra.style.setProperty('--pos', 0);
+      gsap.fromTo([titolo, chi], { y: 8, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, stagger: 0.05, ease: 'morbido' });
+      if ('mediaSession' in navigator && window.MediaMetadata) navigator.mediaSession.metadata = new MediaMetadata({ title: b.titolo, artist: b.autore, album: 'Agriturismo Ae Noseare' });
+    }
+    function play() {
+      grafo();
+      if (ctx && ctx.state === 'suspended') ctx.resume();
+      if (punto < 0) { storia.push(prossimo()); punto = 0; carica(storia[0]); }
+      const p = audio.play();
+      return Promise.resolve(p).then(() => {
+        suona = true; avviata = true; errori = 0;
+        volume(VOLUME, 1.6);
+        aggiorna();
+        return true;
+      }).catch(() => false);
+    }
+    function pausa(voluta) {
+      suona = false;
+      volume(0, 0.35);
+      setTimeout(() => { if (!suona) audio.pause(); }, 380);
+      if (voluta) scrivi('pausa');
+      aggiorna();
+    }
+    function avanti() {
+      if (punto < storia.length - 1) punto++;
+      else { storia.push(prossimo()); punto = storia.length - 1; }
+      carica(storia[punto]);
+      play();
+    }
+    function indietro() {
+      if (audio.currentTime > 4 || punto <= 0) { audio.currentTime = 0; if (!suona) play(); return; }
+      punto--; carica(storia[punto]); play();
+    }
+    audio.addEventListener('ended', avanti);
+    audio.addEventListener('timeupdate', () => { if (audio.duration) barra.style.setProperty('--pos', (audio.currentTime / audio.duration).toFixed(4)); });
+    audio.addEventListener('error', () => { if (++errori < 4) setTimeout(avanti, 400); });
+
+    /* pannello */
+    function apri(si) {
+      box.classList.toggle('aperto', si);
+      bottone.setAttribute('aria-expanded', String(si));
+      pannello.setAttribute('aria-hidden', String(!si));
+    }
+    bottone.addEventListener('click', () => {
+      const si = !box.classList.contains('aperto');
+      apri(si);
+      if (si && !avviata && leggi() !== 'pausa') play();
+    });
+    pannello.addEventListener('click', (e) => {
+      const t = e.target.closest('[data-azione]'); if (!t) return;
+      const a = t.dataset.azione;
+      if (a === 'play') { if (suona) pausa(true); else { scrivi(null); play(); } }
+      else if (a === 'avanti') { scrivi(null); avanti(); }
+      else if (a === 'indietro') { scrivi(null); indietro(); }
+    });
+    document.addEventListener('click', (e) => { if (box.classList.contains('aperto') && !box.contains(e.target)) apri(false); });
+    addEventListener('keydown', (e) => { if (e.key === 'Escape' && box.classList.contains('aperto')) { apri(false); bottone.focus(); } });
+
+    /* parte al primo tocco o clic (i browser non lasciano suonare prima), se non era stata messa in pausa */
+    if (!QA) {
+      const EV = ['pointerup', 'keydown', 'touchend'];
+      const togli = () => EV.forEach((t) => removeEventListener(t, primo, true));
+      function primo(e) {
+        if (avviata || leggi() === 'pausa') { togli(); return; }
+        if (e.target && e.target.closest && e.target.closest('#musica')) return;
+        play().then((ok) => { if (ok) togli(); });
+      }
+      EV.forEach((t) => addEventListener(t, primo, true));
+    }
+
+    /* scheda nascosta: la musica si ferma e riprende al ritorno */
+    let riprendi = false;
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) { if (suona) { riprendi = true; suona = false; audio.pause(); aggiorna(); } }
+      else if (riprendi) { riprendi = false; play(); }
+    });
+
+    if ('mediaSession' in navigator) {
+      const ms = navigator.mediaSession;
+      [['play', () => play()], ['pause', () => pausa(true)], ['nexttrack', avanti], ['previoustrack', indietro]].forEach(([a, f]) => { try { ms.setActionHandler(a, f); } catch (e) { /* non supportato */ } });
+    }
+
+    /* le barrette ballano con la musica vera; ferme, respirano appena */
+    const BIN = [1, 2, 3, 4, 6, 8, 11];
+    gsap.ticker.add((t) => {
+      if (suona && analisi) {
+        analisi.getByteFrequencyData(dati);
+        barre.forEach((b, k) => { const v = dati[BIN[k]] / 255; b.style.transform = `scaleY(${Math.min(1, 0.16 + v * v * 1.15).toFixed(3)})`; });
+      } else {
+        barre.forEach((b, k) => { b.style.transform = `scaleY(${(0.24 + (avviata ? 0 : 0.1 * (1 + Math.sin(t * 2.2 + k * 0.8)))).toFixed(3)})`; });
+      }
+    });
+    aggiorna();
+    window.__musica = { play, pausa, avanti, indietro, stato: () => ({ suona, avviata, brano: storia[punto], storia: storia.slice(), tempo: audio.currentTime }) };
   })();
 
   /* lo spaccio adesso */
@@ -275,27 +416,12 @@
     return { linea, L };
   }
 
-  /* ---------------- misure dei livelli ---------------- */
-  function misuraLivelli() {
-    $$('.livello__scena').forEach((scena) => {
-      const W = scena.clientWidth;
-      $$('.livello__binario', scena).forEach((b) => {
-        const parole = b.children, terza = parole[2];
-        const passo = parole[1].offsetLeft - parole[0].offsetLeft;
-        const x0 = W / 2 - (terza.offsetLeft + terza.offsetWidth / 2);
-        b.style.setProperty('--x0', `${x0}px`);
-        scena._passo = passo; scena._x0 = x0;
-      });
-    });
-  }
-
   /* ================================================================ */
   /*                      MODALITÀ STATICA                              */
   /* ================================================================ */
   if (STATICO) {
     campoLavanda();
-    misuraLivelli();
-    $$('.livello__scena').forEach((s) => { s.style.setProperty('--p', s.parentElement.dataset.livello); $$('.livello__binario', s).forEach((b) => b.style.setProperty('--x', `${s._x0}px`)); });
+    $$('.livello__scena').forEach((s) => s.style.setProperty('--p', s.parentElement.dataset.livello));
     scenaTramonto();
     const { W, H, n } = geoTramonto;
     $$('#tramonto-taglio rect').forEach((r, i) => { r.setAttribute('x', (i * W) / n - 0.5); r.setAttribute('width', W / n + 1); r.setAttribute('y', 0); r.setAttribute('height', H); r.setAttribute('rx', 0); });
@@ -310,11 +436,9 @@
   /* ================================================================ */
   const rLav = campoLavanda();
   scenaTramonto();
-  misuraLivelli();
   const orz = orizzonte();
 
   /* ---------- ingresso dell'eroe ---------- */
-  const nomeSplit = SplitText.create('.eroe__nome', { type: 'words,chars', mask: 'chars', wordsClass: 'parola' });
   gsap.set('.palla__fumetto', { opacity: 0 });
   function ingressoEroe() {
     const tl = gsap.timeline({ defaults: { ease: 'morbido' } });
@@ -323,7 +447,9 @@
       .from('.lavanda .fila', { y: rLav * 1.6, duration: 1.3, stagger: 0.12 }, 0.15)
       .from('.noce', { scale: 0.3, opacity: 0, duration: 1.2, stagger: 0.12, ease: 'back.out(1.5)', transformOrigin: '50% 100%' }, 0.45)
       .from('.eroe__nuvole .nuvola', { x: (i) => (i % 2 ? 90 : -90), opacity: 0, duration: 1.8, stagger: 0.1 }, 0.3)
-      .from(nomeSplit.chars, { yPercent: 115, duration: 1.15, stagger: 0.04 }, 0.35)
+      .fromTo('.eroe .logo__svela', { attr: { width: 0 } }, { attr: { width: 540 }, duration: 1.8, ease: 'scorre' }, 0.3)
+      .from('.eroe .logo__sole', { scale: 0, rotation: -150, transformOrigin: '50% 50%', duration: 0.95, stagger: 0.13, ease: 'back.out(2)' }, 1.45)
+      .add(() => gsap.to('.eroe .logo__sole', { rotation: '+=360', transformOrigin: '50% 50%', duration: 26, repeat: -1, ease: 'none' }), 2.9)
       .from('.eroe__sotto', { opacity: 0, y: 14, duration: 0.9 }, 0.95)
       .fromTo('.eroe__corsivo span', { clipPath: 'inset(-20% 100% -20% 0)' }, { clipPath: 'inset(-20% 0% -20% 0)', duration: 1.6, ease: 'scorre' }, 1.0)
       .from('.palla', { scale: 0.5, opacity: 0, duration: 1.1, stagger: 0.18, ease: 'back.out(1.8)', transformOrigin: '50% 75%' }, 0.8)
@@ -598,16 +724,13 @@
   (function livelli() {
     $$('.livello').forEach((li) => {
       const scena = $('.livello__scena', li), lettura = $('.livello__lettura', li);
-      const binari = $$('.livello__binario', li);
       const livello = parseFloat(li.dataset.livello);
-      const stato = { scroll: 0, sopra: 0, vivo: 0, off: 0 };
+      const stato = { scroll: 0, sopra: 0, vivo: 0 };
       const disegna = () => {
         const base = stato.scroll + (1 - stato.scroll) * stato.sopra;
         const p = gsap.utils.clamp(0, 1, base + stato.vivo * (1 - stato.sopra));
         scena.style.setProperty('--p', p.toFixed(4));
         lettura.classList.toggle('dentro', p > 0.82);
-        const x = scena._x0 - stato.off;
-        binari.forEach((b) => b.style.setProperty('--x', `${x}px`));
       };
       disegna();
       ScrollTrigger.create({
@@ -619,16 +742,8 @@
       const vive = () => { tempo += 0.03; stato.vivo = (Math.sin(tempo * 2.1) * 0.6 + Math.sin(tempo * 5.3) * 0.4) * 0.014 * (stato.scroll > 0.05 ? 1 : 0); disegna(); };
       ScrollTrigger.create({ trigger: li, start: 'top bottom', end: 'bottom top', onToggle: (self) => (self.isActive ? gsap.ticker.add(vive) : gsap.ticker.remove(vive)) });
       if (!TOCCO) {
-        let giro = null;
-        scena.addEventListener('pointerenter', () => {
-          gsap.to(stato, { sopra: 1, duration: 0.6, ease: 'morbido', onUpdate: disegna, overwrite: 'auto' });
-          giro = gsap.to(stato, { off: scena._passo, duration: 1.6, ease: 'none', repeat: -1, onUpdate: disegna });
-        });
-        scena.addEventListener('pointerleave', () => {
-          gsap.to(stato, { sopra: 0, duration: 0.7, ease: 'scorre', onUpdate: disegna, overwrite: 'auto' });
-          if (giro) { giro.kill(); giro = null; }
-          gsap.to(stato, { off: 0, duration: 0.6, ease: 'morbido', onUpdate: disegna });
-        });
+        scena.addEventListener('pointerenter', () => gsap.to(stato, { sopra: 1, duration: 0.6, ease: 'morbido', onUpdate: disegna, overwrite: 'auto' }));
+        scena.addEventListener('pointerleave', () => gsap.to(stato, { sopra: 0, duration: 0.7, ease: 'scorre', onUpdate: disegna, overwrite: 'auto' }));
       }
     });
   })();
@@ -845,7 +960,6 @@
       tlTramonto = timelineTramonto();
       stTramonto.animation = tlTramonto;
       tlTramonto.progress(p);
-      misuraLivelli();
       orizzonte();
       ScrollTrigger.refresh();
     }, 220);
@@ -854,7 +968,6 @@
   /* ---------------- partenza ---------------- */
   const vai = parametri.get('scroll');
   document.fonts.ready.then(() => {
-    misuraLivelli();
     ScrollTrigger.refresh();
     if (lenis) lenis.resize();
     if (vai) { vaiA(+vai); ScrollTrigger.update(); }

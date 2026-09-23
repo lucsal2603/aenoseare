@@ -59,14 +59,51 @@ da me.
   derivati, a qualsiasi ora", "Se dormite da noi", "Prenota un tavolo / Dormi
   in campagna", "A tavola!", "Seguiteci su Instagram", "Buongiorno!".
 
+## Musica (aggiunta il 23 settembre, su richiesta di Lucas)
+Dodici brani della playlist YouTube "Farm Music (No Copyright)", convertiti in
+MP3 a 128 kbps con il volume uniformato (−16 LUFS), nella cartella `audio/`.
+Suonano in ordine casuale dal pulsante in alto a sinistra; nel pannello ci sono
+titolo, autore e il link alla fonte, come chiedono le licenze.
+
+Tolti 5 dei 17 video della playlist:
+- "Farming Life" di Waderman: la descrizione chiede di comprare la licenza su AudioJungle;
+- "Background Farm Music" di JackieMJ TV: è musica della libreria di PowerDirector;
+- "Nostalgic American Farms" di Visual Melodies e "Farm music Instrumental" di
+  baristangik: nessuna licenza dichiarata;
+- "Farm Background Animation Video" di zofia animation: il video è muto.
+
+Licenze dei 12 brani rimasti, da sistemare **prima del sito vero** (un sito di
+un'azienda è uso commerciale):
+| Brani | Cosa dice la licenza | Cosa serve per il sito vero |
+|---|---|---|
+| Happy Friends, Happy Whistle (SoundHills); Cheerful Acoustic, Inspiring Uke (Wavecont); Vlog Pop, Vlog Backing (Stock-Waves); Sunset Beach (Pro Tunes) | gratis nei video YouTube citando l'autore; altrimenti licenza a pagamento su protunes.net | comprare le licenze su protunes.net |
+| Happy Farm (Infraction, Inaudio) | gratis su YouTube con il loro link; licenza commerciale con l'abbonamento a inaudio.org | abbonamento o sostituire |
+| Fun On The Farm (Purple Planet) | gratis citando purple-planet.com | verificare sul loro sito che valga per i siti web |
+| Happy Farm (UmbrTone) | Creative Commons Attribuzione su YouTube, con la citazione "Provided by Umbrtone"; scrivono che l'uso commerciale è limitato ai guadagni di Google | chiedere o sostituire |
+| Old MacDonald Had a Farm (Pixels) | uso commerciale libero, citazione non richiesta | a posto |
+| The Farm (GCORE) | libera nei video, citazione gradita | chiedere all'autore o sostituire |
+
+Alternativa semplice: sostituire i brani dubbi con musica di Pixabay, la cui
+licenza vale anche per i siti web senza citazione.
+
+Come si comporta: i browser non lasciano partire l'audio da solo, quindi la
+musica comincia al primo clic o tocco sulla pagina (o premendo il pulsante);
+se il visitatore la mette in pausa il browser se lo ricorda e non riparte da
+sola alle visite successive; con la scheda nascosta si ferma e riprende al ritorno.
+
+## Logo
+Il logo nell'apertura e nel piede è il loro, ricalcato in vettoriale dal PNG di
+512 px del sito attuale ("Logo + girasoli"); i quattro girasoli sono ridisegnati
+in SVG con lo stesso colore (#DE7F12). Per la stampa e il sito vero conviene
+chiedere il file originale.
+
 ## Foto
 Tutte dal sito attuale: quelle del 2018 (cucina, camere, città), del 2019
 (camere), del 2020 (galline e gallo, capre, crostata, giardino) e del 2022
 (campo e olio di lavanda). Sono piccole: le cartoline delle città sono di
 380 px e la casa di sera di 351 px, quindi restano piccole in pagina.
 Mancano: Cometa e Otto, le mucche, la casetta dello spaccio e il distributore,
-la sala apparecchiata con luce, la colazione, la famiglia. Il logo nel piede è
-il PNG di 512 px del sito attuale: per la stampa serve il file originale.
+la sala apparecchiata con luce, la colazione, la famiglia.
 
 ## Prima di pubblicare sul dominio
 - togliere `noindex` e riaprire `robots.txt`
