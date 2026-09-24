@@ -194,6 +194,24 @@
     });
   }
 
+  /* ---------------- le foto arrivano prima di servire ----------------
+     con loading="lazy" dentro le scene bloccate (che tagliano ai bordi) il browser le scarica solo
+     quando entrano davvero in vista: al telefono, con la rete lenta, restavano vuote. Qui partono
+     due schermate prima della loro sezione. */
+  (function precarica() {
+    const sveglia = (el) => {
+      $$('img[loading="lazy"]', el).forEach((img) => {
+        img.loading = 'eager';
+        const p = new Image();
+        p.src = img.currentSrc || img.src;
+      });
+    };
+    $$('main > section, footer').forEach((sez) => {
+      if (!window.ScrollTrigger || STATICO) { sveglia(sez); return; }
+      ScrollTrigger.create({ trigger: sez, start: 'top 300%', once: true, onEnter: () => sveglia(sez) });
+    });
+  })();
+
   /* ---------------- la testata cambia colore con la sezione ---------------- */
   const testata = $('#testata');
   const tema = (t) => { if (testata.dataset.tema !== t) testata.dataset.tema = t; };
@@ -366,7 +384,7 @@
     const palco = $('.quattro__palco'), box = $('.quattro__colonne');
     const col = $$('.colonna', box), dentro = col.map((c) => $('.colonna__dentro', c));
     let attiva = 0, G = 10;
-    const chiusa = () => (telefono() ? 62 : 82);
+    const chiusa = () => (telefono() ? 54 : 82);
     function misura() {
       const tel = telefono(), st = getComputedStyle(box);
       const gap = parseFloat(tel ? st.rowGap : st.columnGap) || 10;
@@ -468,7 +486,8 @@
   (function numeri() {
     $$('.bolla').forEach((b) => {
       const v = parseFloat(b.dataset.vel) || 0;
-      gsap.fromTo(b, { y: () => v * innerHeight * 0.55 }, { y: () => -v * innerHeight * 0.55, ease: 'none', scrollTrigger: { trigger: b, start: 'top bottom', end: 'bottom top', scrub: true, invalidateOnRefresh: true } });
+      const k = () => (telefono() ? 0.25 : 0.55);
+      gsap.fromTo(b, { y: () => v * innerHeight * k() }, { y: () => -v * innerHeight * k(), ease: 'none', scrollTrigger: { trigger: b, start: 'top bottom', end: 'bottom top', scrub: true, invalidateOnRefresh: true } });
       gsap.from(b, { scale: 0.3, opacity: 0, rotation: v > 0 ? 30 : -30, duration: 1.1, ease: 'back.out(1.7)', scrollTrigger: { trigger: b, start: 'top 94%', toggleActions: 'play none none reverse' } });
     });
     if (QA) return;
@@ -762,9 +781,15 @@
       onToggle: (s) => { attivo = s.isActive; if (attivo && !creato) crea(); },
     });
     const punto = (e) => { const r = box.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
+    let tipo = 'mouse';
+    palle.forEach((el, i) => el.addEventListener('click', () => {
+      const b = corpi[i]; if (!b || !engine || tipo === 'mouse') return;
+      Body.setVelocity(b, { x: (Math.random() - 0.5) * 12, y: -14 - Math.random() * 5 });
+      Body.setAngularVelocity(b, (Math.random() - 0.5) * 0.4);
+    }));
     palle.forEach((el, i) => el.addEventListener('pointerdown', (e) => {
-      const b = corpi[i]; if (!b || !engine) return;
-      if (e.pointerType !== 'mouse') { Body.setVelocity(b, { x: (Math.random() - 0.5) * 14, y: -16 - Math.random() * 6 }); Body.setAngularVelocity(b, (Math.random() - 0.5) * 0.4); return; }
+      tipo = e.pointerType;
+      const b = corpi[i]; if (!b || !engine || e.pointerType !== 'mouse') return;
       e.preventDefault();
       const p = punto(e);
       presa = Constraint.create({ pointA: p, bodyB: b, pointB: { x: p.x - b.position.x, y: p.y - b.position.y }, stiffness: 0.1, damping: 0.08, length: 0 });
@@ -773,8 +798,11 @@
     }));
     addEventListener('pointermove', (e) => { if (presa) presa.pointA = punto(e); });
     addEventListener('pointerup', () => { if (presa && engine) { Composite.remove(engine.world, presa); presa = null; box.classList.remove('trascina'); } });
-    let larghezza = innerWidth;
-    addEventListener('resize', gsap.utils.debounce ? gsap.utils.debounce(() => { if (creato && Math.abs(innerWidth - larghezza) > 40) { larghezza = innerWidth; crea(); } }, 300) : () => {});
+    let larghezza = innerWidth, attesa = 0;
+    addEventListener('resize', () => {
+      clearTimeout(attesa);
+      attesa = setTimeout(() => { if (creato && Math.abs(innerWidth - larghezza) > 40) { larghezza = innerWidth; crea(); } }, 300);
+    });
   })();
 
   /* =====================================================================
@@ -799,6 +827,22 @@
   $$('main [data-tema], footer[data-tema]').forEach((sez) => {
     ScrollTrigger.create({ trigger: sez, start: 'top 40px', end: 'bottom 40px', onToggle: (s) => { if (s.isActive) tema(sez.dataset.tema); } });
   });
+
+  /* ---------------- al telefono la testata lascia spazio ---------------- */
+  (function testataTelefono() {
+    let base = 0, nascosta = false;
+    const metti = (si) => { nascosta = si; testata.classList.toggle('nascosta', si); };
+    ScrollTrigger.create({
+      start: 0, end: 'max',
+      onUpdate: (s) => {
+        const y = s.scroll();
+        if (!telefono() || html.classList.contains('menu-aperto') || y < stEroe.end) { if (nascosta) metti(false); base = y; return; }
+        if (!nascosta) { if (y < base) base = y; else if (y - base > 70) { metti(true); base = y; } }
+        else if (y > base) base = y;
+        else if (base - y > 14) { metti(false); base = y; }
+      },
+    });
+  })();
 
   /* ---------------- partenza ---------------- */
   const pronto = () => {
