@@ -53,7 +53,12 @@ a tema (carte a ventaglio), le domande (il titolo si scrive da solo), il piede
 
 Dopo l'apertura compare in basso a destra il bottone di WhatsApp: il tondo
 verde col logo, che ogni tanto squilla e si inclina quando si scorre; al
-computer si avvicina un poco al puntatore.
+computer si avvicina un poco al puntatore. Al telefono, sopra WhatsApp, c'è anche
+il bottone rosso per chiamare lo 0444 910305, sempre a portata di pollice.
+
+I file `css/style.css` e `js/main.js` sono richiamati con un numero di versione
+(`?v=...`): a ogni pubblicazione va aggiornato, così i telefoni non tengono le
+copie vecchie.
 
 Caratteri: **Gloock** per i titoli, **Instrument Serif** corsivo per le
 parole morbide, **Instrument Sans** per i testi. Il puntatore è uno dei

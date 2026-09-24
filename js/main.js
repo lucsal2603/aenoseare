@@ -859,10 +859,12 @@
      velocità di scorrimento, al computer il bottone segue un poco il mouse */
   (function whatsapp() {
     const wa = $('.wa'); if (!wa) return;
-    const inclina = $('.wa__inclina', wa);
-    gsap.set(wa, { scale: 0, rotation: -120, autoAlpha: 0 });
-    const mostra = () => gsap.to(wa, { scale: 1, rotation: 0, autoAlpha: 1, duration: 1, ease: 'back.out(1.7)', overwrite: 'auto' });
-    const nascondi = () => gsap.to(wa, { scale: 0, rotation: -120, autoAlpha: 0, duration: 0.45, ease: 'power2.in', overwrite: 'auto' });
+    /* al telefono c'è anche il bottone per chiamare, sopra WhatsApp: si comportano insieme */
+    const tasti = $$('.wa, .chiama');
+    const inclina = $$('.wa__inclina, .chiama__inclina');
+    gsap.set(tasti, { scale: 0, rotation: -120, autoAlpha: 0 });
+    const mostra = () => gsap.to(tasti, { scale: 1, rotation: 0, autoAlpha: 1, duration: 1, ease: 'back.out(1.7)', stagger: 0.12, overwrite: 'auto' });
+    const nascondi = () => gsap.to(tasti, { scale: 0, rotation: -120, autoAlpha: 0, duration: 0.45, ease: 'power2.in', stagger: 0.06, overwrite: 'auto' });
     /* visibile da quando si esce dall'apertura fino in fondo: decide solo la posizione,
        così in fondo alla pagina (e nel rimbalzo di Safari) non sparisce */
     const chiSiamo = $('#chi-siamo');
@@ -879,7 +881,8 @@
       prima = y;
       piega += (bersaglio - piega) * 0.1;
       if (Math.abs(piega) < 0.05 && !bersaglio) piega = 0;
-      inclina.style.transform = piega ? `rotate(${piega.toFixed(2)}deg)` : '';
+      const giro = piega ? `rotate(${piega.toFixed(2)}deg)` : '';
+      inclina.forEach((el) => { el.style.transform = giro; });
     });
     if (TOCCO) return;
     /* la calamita: vicino al puntatore il bottone si sposta un poco verso di lui */

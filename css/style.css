@@ -32,6 +32,9 @@
 /* su iPhone la barra di Safari si ritira scorrendo: le scene a tutto schermo prendono l'altezza grande
    (niente strisce vuote in fondo) e quello che sta in basso sale della differenza, così resta sopra la barra */
 @supports (height: 100lvh) { :root { --schermo: 100lvh; --barra: calc(100lvh - 100svh); } }
+/* l'altezza visibile in questo momento: con la barra di Safari aperta è più bassa della scena */
+:root { --visibile: 100vh; }
+@supports (height: 100dvh) { :root { --visibile: 100dvh; } }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; background: var(--rosso); }
@@ -537,7 +540,19 @@ html.in-caricamento .eroe__marchio, html.in-caricamento .eroe__dove, html.in-car
   -webkit-tap-highlight-color: transparent;
 }
 /* nascosto finché il JS non decide (niente lampo durante il caricamento); senza animazioni resta visibile */
-html.js:not(.statico) .wa { visibility: hidden; opacity: 0; }
+html.js:not(.statico) .wa, html.js:not(.statico) .chiama { visibility: hidden; opacity: 0; }
+/* il bottone per chiamare esiste solo al telefono */
+.chiama { display: none; }
+.chiama__tondo {
+  display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%;
+  background: var(--rosso); color: var(--crema);
+  box-shadow: inset 0 0 0 2px rgba(246, 238, 220, .9), 0 14px 32px rgba(46, 30, 20, .3);
+  transition: transform .45s var(--ease-out);
+}
+.chiama__inclina { display: grid; place-items: center; width: 100%; height: 100%; }
+/* squilla anche lui, a metà del giro di WhatsApp: i due si alternano */
+.chiama__icona { width: 24px; height: 24px; transform-origin: 50% 50%; animation: squillo 5.5s var(--ease-out) infinite 4.75s; }
+.chiama:active .chiama__tondo { transform: scale(.92); }
 .wa__tondo {
   position: relative; display: grid; place-items: center;
   width: 100%; height: 100%; border-radius: 50%;
@@ -622,6 +637,14 @@ html.js:not(.statico) .wa { visibility: hidden; opacity: 0; }
   .volo { width: 70vw; }
   .volo figcaption { display: none; }
   .camere__testa .titolo { font-size: 11vw; }
+  .camere__palco {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3.4vh;
+    padding: 0 var(--margine) calc(var(--schermo) - var(--visibile));
+    transition: padding-bottom .5s var(--ease-out);
+  }
+  .camere__testa { position: relative; left: auto; right: auto; top: auto; transform: none; }
+  .camere__fondo { position: relative; left: auto; right: auto; bottom: auto; margin: 0 auto; max-width: 34ch; }
+  .camere__tunnel { bottom: auto; height: var(--visibile); transition: height .5s var(--ease-out); }
 
   .fattoria { padding: 14vh var(--margine) 12vh; }
   .fattoria__testa { grid-template-columns: 1fr; gap: 4vh; }
@@ -662,12 +685,18 @@ html.js:not(.statico) .wa { visibility: hidden; opacity: 0; }
   .cestino { height: 46vh; }
   .cestino__palla { width: 24vw; }
   .wa { width: 58px; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
+  .chiama {
+    display: block; position: fixed; z-index: 50;
+    right: 16px; bottom: calc(16px + 58px + 12px + env(safe-area-inset-bottom, 0px));
+    width: 58px; aspect-ratio: 1; border-radius: 50%;
+    -webkit-tap-highlight-color: transparent;
+  }
   .piede__basso { flex-direction: column; gap: 14px; }
   .piede__basso p:first-child span { display: block; margin: 4px 0 0; }
 }
 
 /* ---------- movimento ridotto ---------- */
-html.statico .grana::before, html.statico .wa__icona { animation: none; }
+html.statico .grana::before, html.statico .wa__icona, html.statico .chiama__icona { animation: none; }
 html.statico .eroe__marchio { top: 18vh; }
 html.statico .eroe__benvenuto { display: none; }
 html.statico .galleria__palco { height: auto; padding: 12vh 0; }
@@ -686,7 +715,7 @@ html.statico .riga { opacity: 1; }
 html.statico .spazzata { display: none; }
 html.statico .camere__palco { height: auto; padding: 16vh 0 0; }
 html.statico .camere__testa { position: relative; top: auto; transform: none; }
-html.statico .camere__tunnel { position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; padding: 8vh var(--margine); }
+html.statico .camere__tunnel { position: relative; height: auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; padding: 8vh var(--margine); }
 html.statico .volo { position: relative; left: auto; top: auto; opacity: 1; width: 30vw; }
 html.statico .camere__fondo { position: relative; bottom: auto; }
 html.statico .muro__nomi span { color: var(--crema); }
