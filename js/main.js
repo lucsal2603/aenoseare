@@ -781,23 +781,33 @@
       onToggle: (s) => { attivo = s.isActive; if (attivo && !creato) crea(); },
     });
     const punto = (e) => { const r = box.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
-    let tipo = 'mouse';
-    palle.forEach((el, i) => el.addEventListener('click', () => {
-      const b = corpi[i]; if (!b || !engine || tipo === 'mouse') return;
-      Body.setVelocity(b, { x: (Math.random() - 0.5) * 12, y: -14 - Math.random() * 5 });
-      Body.setAngularVelocity(b, (Math.random() - 0.5) * 0.4);
-    }));
+    /* le palline si prendono col mouse e col dito: si trascinano e si lanciano;
+       un tocco senza trascinare le fa saltare */
+    let inizio = null;
     palle.forEach((el, i) => el.addEventListener('pointerdown', (e) => {
-      tipo = e.pointerType;
-      const b = corpi[i]; if (!b || !engine || e.pointerType !== 'mouse') return;
+      const b = corpi[i]; if (!b || !engine || presa) return;
       e.preventDefault();
+      try { el.setPointerCapture(e.pointerId); } catch (err) { /* niente */ }
       const p = punto(e);
-      presa = Constraint.create({ pointA: p, bodyB: b, pointB: { x: p.x - b.position.x, y: p.y - b.position.y }, stiffness: 0.1, damping: 0.08, length: 0 });
+      inizio = { x: e.clientX, y: e.clientY, t: performance.now(), b };
+      presa = Constraint.create({ pointA: p, bodyB: b, pointB: { x: p.x - b.position.x, y: p.y - b.position.y }, stiffness: e.pointerType === 'mouse' ? 0.1 : 0.16, damping: 0.08, length: 0 });
       Composite.add(engine.world, presa);
       box.classList.add('trascina');
     }));
+    const lascia = (e) => {
+      if (!presa || !engine) return;
+      Composite.remove(engine.world, presa);
+      presa = null;
+      box.classList.remove('trascina');
+      if (inizio && e.type === 'pointerup' && Math.hypot(e.clientX - inizio.x, e.clientY - inizio.y) < 8 && performance.now() - inizio.t < 300) {
+        Body.setVelocity(inizio.b, { x: (Math.random() - 0.5) * 12, y: -14 - Math.random() * 5 });
+        Body.setAngularVelocity(inizio.b, (Math.random() - 0.5) * 0.4);
+      }
+      inizio = null;
+    };
     addEventListener('pointermove', (e) => { if (presa) presa.pointA = punto(e); });
-    addEventListener('pointerup', () => { if (presa && engine) { Composite.remove(engine.world, presa); presa = null; box.classList.remove('trascina'); } });
+    addEventListener('pointerup', lascia);
+    addEventListener('pointercancel', lascia);
     let larghezza = innerWidth, attesa = 0;
     addEventListener('resize', () => {
       clearTimeout(attesa);
@@ -853,13 +863,18 @@
     gsap.set(wa, { scale: 0, rotation: -120, autoAlpha: 0 });
     const mostra = () => gsap.to(wa, { scale: 1, rotation: 0, autoAlpha: 1, duration: 1, ease: 'back.out(1.7)', overwrite: 'auto' });
     const nascondi = () => gsap.to(wa, { scale: 0, rotation: -120, autoAlpha: 0, duration: 0.45, ease: 'power2.in', overwrite: 'auto' });
-    ScrollTrigger.create({
-      trigger: '#chi-siamo', start: 'top 85%', endTrigger: 'html', end: 'bottom bottom',
-      onToggle: (s) => (s.isActive ? mostra() : nascondi()),
-    });
+    /* visibile da quando si esce dall'apertura fino in fondo: decide solo la posizione,
+       così in fondo alla pagina (e nel rimbalzo di Safari) non sparisce */
+    const chiSiamo = $('#chi-siamo');
+    let soglia = Infinity, visibile = false;
+    const misura = () => { soglia = chiSiamo.getBoundingClientRect().top + scrollAdesso() - innerHeight * 0.85; };
+    misura();
+    ScrollTrigger.addEventListener('refresh', misura);
     let piega = 0, prima = scrollAdesso();
     gsap.ticker.add(() => {
       const y = scrollAdesso();
+      const deve = y > soglia;
+      if (deve !== visibile) { visibile = deve; if (deve) mostra(); else nascondi(); }
       const bersaglio = Math.max(-22, Math.min(22, (y - prima) * 0.9));
       prima = y;
       piega += (bersaglio - piega) * 0.1;

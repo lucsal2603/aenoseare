@@ -25,7 +25,7 @@ acqua). Impianto e movimenti presi da sette siti:
   con le frecce.
 - **joinswsh.com**: la foto che si apre tra due parole che si allontanano e
   poi diventa una griglia che si allarga; il cestino con le palline che cadono
-  e si possono prendere col mouse (fisica vera, Matter.js).
+  e si possono prendere e lanciare col mouse o col dito (fisica vera, Matter.js).
 - **moremedia.at**: la fisarmonica a colonne colorate, il muro dei nomi che si
   accende, il timbro che gira col numero di telefono.
 - **alejandroha.com**: la pennellata che attraversa lo schermo e porta alla
