@@ -73,7 +73,6 @@ html.in-caricamento body { overflow: hidden; }
   letter-spacing: .14em; text-transform: uppercase;
   display: flex; align-items: center; gap: 12px;
 }
-.etichetta::before { content: ""; width: 28px; height: 1.5px; background: currentColor; opacity: .7; }
 .titolo {
   margin: 0;
   font-family: var(--f-titolo); font-weight: 400;
