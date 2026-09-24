@@ -81,170 +81,6 @@
     el.style.setProperty('--grana', `url(${c.toDataURL('image/png')})`);
   })();
 
-  /* ---------------- la musica di campagna, in alto a sinistra ---------------- */
-  (function musica() {
-    const BRANI = [
-      { file: 'happy-friends.mp3', titolo: 'Happy Friends', autore: 'SoundHills', fonte: 'https://hypeddit.com/fvkvmv' },
-      { file: 'cheerful-acoustic.mp3', titolo: 'Cheerful Acoustic', autore: 'Wavecont', fonte: 'https://hypeddit.com/29ie04' },
-      { file: 'inspiring-uke.mp3', titolo: 'Inspiring Uke', autore: 'Wavecont', fonte: 'https://hypeddit.com/xxn396' },
-      { file: 'sunset-beach.mp3', titolo: 'Sunset Beach', autore: 'Pro Tunes', fonte: 'https://hypeddit.com/wgfpn8' },
-      { file: 'happy-whistle.mp3', titolo: 'Happy Whistle', autore: 'SoundHills', fonte: 'https://hypeddit.com/eieuie' },
-      { file: 'happy-farm-infraction.mp3', titolo: 'Happy Farm', autore: 'Infraction, Inaudio', fonte: 'https://inaudio.org/track/happy-farm-comedy-orchestra/' },
-      { file: 'vlog-pop.mp3', titolo: 'Vlog Pop', autore: 'Stock-Waves', fonte: 'https://hypeddit.com/jqs7u4' },
-      { file: 'fun-on-the-farm.mp3', titolo: 'Fun On The Farm', autore: 'Purple Planet Music', fonte: 'https://www.purple-planet.com' },
-      { file: 'vlog-backing.mp3', titolo: 'Vlog Backing', autore: 'Stock-Waves', fonte: 'https://hypeddit.com/maxgq1' },
-      { file: 'happy-farm-umbrtone.mp3', titolo: 'Happy Farm', autore: 'UmbrTone', fonte: 'https://hypeddit.com/track/qnl7al' },
-      { file: 'old-macdonald.mp3', titolo: 'Old MacDonald Had a Farm', autore: 'Pixels', fonte: 'https://www.youtube.com/watch?v=3pZ0iN8_M5w' },
-      { file: 'the-farm-gcore.mp3', titolo: 'The Farm', autore: 'GCORE', fonte: 'https://www.youtube.com/watch?v=xwCElgqlsMU' },
-    ];
-    const box = $('#musica'); if (!box) return;
-    const bottone = $('.testata__musica', box), pannello = $('.musica__pannello', box);
-    const titolo = $('.musica__titolo', box), chi = $('.musica__chi', box), fonte = $('.musica__fonte', box);
-    const stato = $('.musica__stato', box), barra = $('.musica__barra', box), tastoPlay = $('[data-azione="play"]', box);
-    const barre = $$('.musica__barre i', box);
-    const audio = new Audio();
-    audio.preload = 'auto';
-    const VOLUME = 0.6, CHIAVE = 'aenoseare-musica';
-    let ctx = null, guadagno = null, analisi = null, dati = null;
-    let storia = [], punto = -1, sacco = [], suona = false, avviata = false, errori = 0;
-    const leggi = () => { try { return localStorage.getItem(CHIAVE); } catch (e) { return null; } };
-    const scrivi = (v) => { try { if (v) localStorage.setItem(CHIAVE, v); else localStorage.removeItem(CHIAVE); } catch (e) { /* niente */ } };
-
-    /* ordine casuale: un sacco rimescolato, mai lo stesso brano due volte di fila */
-    function mescola(escludi) {
-      const a = BRANI.map((_, i) => i).filter((i) => i !== escludi);
-      for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
-      return a;
-    }
-    function prossimo() { if (!sacco.length) sacco = mescola(storia[punto]); return sacco.shift(); }
-
-    function grafo() {
-      if (ctx) return;
-      const AC = window.AudioContext || window.webkitAudioContext;
-      if (!AC) return;
-      try {
-        ctx = new AC();
-        const sorgente = ctx.createMediaElementSource(audio);
-        guadagno = ctx.createGain(); guadagno.gain.value = 0;
-        analisi = ctx.createAnalyser(); analisi.fftSize = 64; analisi.smoothingTimeConstant = 0.8;
-        dati = new Uint8Array(analisi.frequencyBinCount);
-        sorgente.connect(guadagno); guadagno.connect(analisi); analisi.connect(ctx.destination);
-      } catch (e) { ctx = null; guadagno = null; analisi = null; }
-    }
-    function volume(v, t) {
-      if (guadagno) {
-        const g = guadagno.gain, n = ctx.currentTime;
-        g.cancelScheduledValues(n); g.setValueAtTime(g.value, n); g.linearRampToValueAtTime(v, n + t);
-      } else audio.volume = v;
-    }
-    function aggiorna() {
-      box.classList.toggle('suona', suona);
-      tastoPlay.setAttribute('aria-label', suona ? 'Pausa' : 'Riproduci');
-      stato.textContent = suona ? 'in riproduzione' : (avviata ? 'in pausa' : 'musica di campagna');
-      if ('mediaSession' in navigator) navigator.mediaSession.playbackState = suona ? 'playing' : 'paused';
-    }
-    function carica(i) {
-      const b = BRANI[i];
-      audio.src = `audio/${b.file}`;
-      titolo.textContent = b.titolo;
-      chi.textContent = b.autore;
-      fonte.href = b.fonte; fonte.hidden = false;
-      barra.style.setProperty('--pos', 0);
-      gsap.fromTo([titolo, chi], { y: 8, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, stagger: 0.05, ease: 'morbido' });
-      if ('mediaSession' in navigator && window.MediaMetadata) navigator.mediaSession.metadata = new MediaMetadata({ title: b.titolo, artist: b.autore, album: 'Agriturismo Ae Noseare' });
-    }
-    function play() {
-      grafo();
-      if (ctx && ctx.state === 'suspended') ctx.resume();
-      if (punto < 0) { storia.push(prossimo()); punto = 0; carica(storia[0]); }
-      const p = audio.play();
-      return Promise.resolve(p).then(() => {
-        suona = true; avviata = true; errori = 0;
-        volume(VOLUME, 1.6);
-        aggiorna();
-        return true;
-      }).catch(() => false);
-    }
-    function pausa(voluta) {
-      suona = false;
-      volume(0, 0.35);
-      setTimeout(() => { if (!suona) audio.pause(); }, 380);
-      if (voluta) scrivi('pausa');
-      aggiorna();
-    }
-    function avanti() {
-      if (punto < storia.length - 1) punto++;
-      else { storia.push(prossimo()); punto = storia.length - 1; }
-      carica(storia[punto]);
-      play();
-    }
-    function indietro() {
-      if (audio.currentTime > 4 || punto <= 0) { audio.currentTime = 0; if (!suona) play(); return; }
-      punto--; carica(storia[punto]); play();
-    }
-    audio.addEventListener('ended', avanti);
-    audio.addEventListener('timeupdate', () => { if (audio.duration) barra.style.setProperty('--pos', (audio.currentTime / audio.duration).toFixed(4)); });
-    audio.addEventListener('error', () => { if (++errori < 4) setTimeout(avanti, 400); });
-
-    /* pannello */
-    function apri(si) {
-      box.classList.toggle('aperto', si);
-      bottone.setAttribute('aria-expanded', String(si));
-      pannello.setAttribute('aria-hidden', String(!si));
-    }
-    bottone.addEventListener('click', () => {
-      const si = !box.classList.contains('aperto');
-      apri(si);
-      if (si && !avviata && leggi() !== 'pausa') play();
-    });
-    pannello.addEventListener('click', (e) => {
-      const t = e.target.closest('[data-azione]'); if (!t) return;
-      const a = t.dataset.azione;
-      if (a === 'play') { if (suona) pausa(true); else { scrivi(null); play(); } }
-      else if (a === 'avanti') { scrivi(null); avanti(); }
-      else if (a === 'indietro') { scrivi(null); indietro(); }
-    });
-    document.addEventListener('click', (e) => { if (box.classList.contains('aperto') && !box.contains(e.target)) apri(false); });
-    addEventListener('keydown', (e) => { if (e.key === 'Escape' && box.classList.contains('aperto')) { apri(false); bottone.focus(); } });
-
-    /* parte al primo tocco o clic (i browser non lasciano suonare prima), se non era stata messa in pausa */
-    if (!QA) {
-      const EV = ['pointerup', 'keydown', 'touchend'];
-      const togli = () => EV.forEach((t) => removeEventListener(t, primo, true));
-      function primo(e) {
-        if (avviata || leggi() === 'pausa') { togli(); return; }
-        if (e.target && e.target.closest && e.target.closest('#musica')) return;
-        play().then((ok) => { if (ok) togli(); });
-      }
-      EV.forEach((t) => addEventListener(t, primo, true));
-    }
-
-    /* scheda nascosta: la musica si ferma e riprende al ritorno */
-    let riprendi = false;
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) { if (suona) { riprendi = true; suona = false; audio.pause(); aggiorna(); } }
-      else if (riprendi) { riprendi = false; play(); }
-    });
-
-    if ('mediaSession' in navigator) {
-      const ms = navigator.mediaSession;
-      [['play', () => play()], ['pause', () => pausa(true)], ['nexttrack', avanti], ['previoustrack', indietro]].forEach(([a, f]) => { try { ms.setActionHandler(a, f); } catch (e) { /* non supportato */ } });
-    }
-
-    /* le barrette ballano con la musica vera; ferme, respirano appena */
-    const BIN = [1, 3, 5, 8, 12];
-    gsap.ticker.add((t) => {
-      if (suona && analisi) {
-        analisi.getByteFrequencyData(dati);
-        barre.forEach((b, k) => { const v = dati[BIN[k]] / 255; b.style.transform = `scaleY(${Math.min(1, 0.16 + v * v * 1.15).toFixed(3)})`; });
-      } else {
-        barre.forEach((b, k) => { b.style.transform = `scaleY(${(0.24 + (avviata ? 0 : 0.1 * (1 + Math.sin(t * 2.2 + k * 0.8)))).toFixed(3)})`; });
-      }
-    });
-    aggiorna();
-    window.__musica = { play, pausa, avanti, indietro, stato: () => ({ suona, avviata, brano: storia[punto], storia: storia.slice(), tempo: audio.currentTime }) };
-  })();
-
   /* ---------------- lo spaccio adesso ---------------- */
   (function statoSpaccio() {
     const el = $('.spaccio__adesso'); if (!el) return;
@@ -430,6 +266,7 @@
     ingresso = gsap.timeline({
       paused: true,
       onComplete: () => {
+        clearTimeout(window.__aeRiserva);
         html.classList.remove('in-caricamento');
         if (lenis) lenis.start();
         ScrollTrigger.refresh();
@@ -468,7 +305,7 @@
     .to(marchio, { x: () => verso().x, y: () => verso().y, scale: () => verso().s, duration: 0.56, ease: 'power3.inOut' }, 0)
     .to(soli, { rotation: 360, duration: 0.56, ease: 'power1.inOut' }, 0)
     .to(macchiaStato, { r: 1, duration: 0.66, ease: 'power2.in' }, 0.08)
-    .fromTo(immagine, { scale: 1.45, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.84, ease: 'power1.out' }, 0.08)
+    .fromTo(immagine, { scale: 1.25, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.84, ease: 'power1.out' }, 0.08)
     .from(splitGrido.chars, { yPercent: 120, rotation: 12, opacity: 0, stagger: 0.012, duration: 0.2, ease: 'back.out(1.6)' }, 0.6)
     .from(sotto, { y: 30, opacity: 0, duration: 0.14 }, 0.8)
     .to({}, { duration: 0.08 });

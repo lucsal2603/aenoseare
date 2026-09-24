@@ -19,7 +19,10 @@
       if (/[?&]qa\b/.test(q)) h.classList.add('qa');
       if (/[?&]statico\b/.test(q) || matchMedia('(prefers-reduced-motion: reduce)').matches) h.classList.add('statico');
       if (!h.classList.contains('qa') && !h.classList.contains('statico')) h.classList.add('in-caricamento');
-      setTimeout(function () { h.classList.remove('in-caricamento'); }, 7000);
+      window.__aeRiserva = setTimeout(function riserva() {
+        if (document.hidden) { window.__aeRiserva = setTimeout(riserva, 1500); return; }
+        h.classList.remove('in-caricamento');
+      }, 7000);
     })();
   </script>
 </head>
@@ -46,23 +49,6 @@
 
 <header class="testata" id="testata" data-tema="rosso">
   <div class="testata__sx">
-    <div class="musica" id="musica">
-      <button class="testata__musica" type="button" aria-expanded="false" aria-controls="musica-pannello">
-        <span class="musica__barre" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-        <span class="sr">Musica: apri i comandi</span>
-      </button>
-      <div class="musica__pannello" id="musica-pannello" role="group" aria-label="Musica" aria-hidden="true">
-        <p class="musica__stato">musica di campagna</p>
-        <p class="musica__titolo" aria-live="polite">Premi play</p>
-        <p class="musica__autore"><span class="musica__chi">brani senza diritti, in ordine casuale</span><a class="musica__fonte" href="#" target="_blank" rel="noopener" hidden>fonte</a></p>
-        <div class="musica__barra" aria-hidden="true"><b></b></div>
-        <div class="musica__comandi">
-          <button class="musica__tasto" type="button" data-azione="indietro" aria-label="Brano precedente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 5h2.6v14H5.5zM19 5.6v12.8a.8.8 0 0 1-1.2.7L9.4 12.7a.8.8 0 0 1 0-1.4l8.4-6.4a.8.8 0 0 1 1.2.7z"/></svg></button>
-          <button class="musica__tasto musica__tasto--play" type="button" data-azione="play" aria-label="Riproduci"><svg class="icona-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6a.9.9 0 0 0 1.4.8l10.3-6.8a.9.9 0 0 0 0-1.6L9.4 4.4A.9.9 0 0 0 8 5.2z"/></svg><svg class="icona-pausa" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 5h4v14h-4zM13.5 5h4v14h-4z"/></svg></button>
-          <button class="musica__tasto" type="button" data-azione="avanti" aria-label="Brano successivo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.9 5h2.6v14h-2.6zM5 5.6v12.8a.8.8 0 0 0 1.2.7l8.4-6.4a.8.8 0 0 0 0-1.4L6.2 4.9A.8.8 0 0 0 5 5.6z"/></svg></button>
-        </div>
-      </div>
-    </div>
     <a class="testata__logo" href="#inizio" aria-label="Ae Noseare, torna all'inizio">
       <svg class="logo" viewBox="0 0 512 185" aria-hidden="true"><use class="logo__scritta" href="#logo-scritta"/><use href="#logo-sole" x="283.5" y="139" width="40" height="40"/><use href="#logo-sole" x="343.5" y="139" width="40" height="40"/><use href="#logo-sole" x="403.5" y="139" width="40" height="40"/><use href="#logo-sole" x="463.5" y="139" width="40" height="40"/></svg>
     </a>
@@ -97,8 +83,14 @@
   <section class="eroe" id="inizio" data-tema="rosso">
     <div class="eroe__palco">
       <svg class="eroe__foto" aria-hidden="true">
-        <defs><clipPath id="macchia-eroe"><path class="eroe__macchia"/></clipPath></defs>
-        <g clip-path="url(#macchia-eroe)"><image class="eroe__immagine" href="img/affettato-pane.webp" preserveAspectRatio="xMidYMid slice"/></g>
+        <defs>
+          <clipPath id="macchia-eroe"><path class="eroe__macchia"/></clipPath>
+          <linearGradient id="velo-eroe" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#1E120A" stop-opacity=".55"/><stop offset=".2" stop-color="#1E120A" stop-opacity="0"/>
+            <stop offset=".5" stop-color="#1E120A" stop-opacity="0"/><stop offset="1" stop-color="#1E120A" stop-opacity=".62"/>
+          </linearGradient>
+        </defs>
+        <g clip-path="url(#macchia-eroe)"><image class="eroe__immagine" href="img/casa-fronte-grande.webp" preserveAspectRatio="xMidYMid slice"/><rect class="eroe__velo" width="100%" height="100%" fill="url(#velo-eroe)"/></g>
       </svg>
       <h1 class="eroe__marchio">
         <span class="sr">Agriturismo Ae Noseare</span>

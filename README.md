@@ -32,13 +32,12 @@ acqua). Impianto e movimenti presi da sette siti:
   sera, le lettere che cadono al loro posto.
 - **loehx.com**: le foto delle camere che arrivano dal fondo e ci passano
   accanto.
-- **ascension.pegassi.be**: la grana da pellicola su tutta la pagina e il
-  lettore musicale piccolo.
+- **ascension.pegassi.be**: la grana da pellicola su tutta la pagina.
 
 ## Il percorso
 Apertura rossa col logo che si scrive e i girasoli che sbocciano; scorrendo
 il logo va nella testata e una macchia che respira si allarga fino a mostrare
-salumi e pane, con "Venite a trovarci!". Poi chi siamo (le parole si
+la casa col portico, con "Venite a trovarci!". Poi chi siamo (le parole si
 accendono, i nomi della famiglia come etichette), la campagna (lavanda tra le
 parole, poi nove foto), quattro cose (fisarmonica: cucina, camere, fattoria,
 spaccio), dalla nostra cucina (otto piatti tondi che rotolano e lo sfondo che
@@ -56,14 +55,9 @@ Caratteri: **Gloock** per i titoli, **Instrument Serif** corsivo per le
 parole morbide, **Instrument Sans** per i testi. Il puntatore è uno dei
 girasoli del logo e gira più veloce quando si scorre.
 
-## Logo e musica
+## Logo
 Il logo è il loro, ricalcato in vettoriale dal PNG del sito attuale, con i
-quattro girasoli ridisegnati. In alto a sinistra il pulsante della musica: le
-barrette ballano con l'audio vero (analizzatore Web Audio) e al clic si apre il
-pannellino con titolo, autore, fonte, avanzamento e i comandi indietro, pausa e
-avanti. Dodici brani senza diritti in `audio/`, in ordine casuale senza
-ripetizioni; la musica parte al primo clic sulla pagina. Licenze e brani
-esclusi in `DA-VERIFICARE.md`.
+quattro girasoli ridisegnati.
 
 ## Tecnica
 HTML, CSS e JavaScript puri, senza build. GSAP 3.15 (ScrollTrigger, SplitText,

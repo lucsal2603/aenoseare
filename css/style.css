@@ -162,45 +162,6 @@ html.cursore-su .cursore__corpo { transform: scale(1.8); }
 .testata__menu[aria-expanded="true"] b:nth-child(2) { top: 4.5px; transform: rotate(-45deg); }
 html.menu-aperto .testata { --t: var(--crema); --t-fondo: var(--crema); --t-su: var(--vinaccia); }
 
-/* la musica */
-.musica { position: relative; }
-.testata__musica {
-  display: grid; place-items: center;
-  width: 46px; height: 46px; border-radius: 999px;
-  border: 1.5px solid currentColor;
-  transition: transform .16s var(--ease-out);
-}
-.testata__musica:active { transform: scale(.94); }
-.musica__barre { display: flex; align-items: center; gap: 3px; height: 16px; }
-.musica__barre i { width: 2.5px; height: 100%; border-radius: 2px; background: currentColor; transform: scaleY(.3); transform-origin: 50% 50%; will-change: transform; }
-.musica__pannello {
-  position: absolute; top: calc(100% + 12px); left: 0; z-index: 2;
-  width: min(300px, calc(100vw - 2 * var(--margine)));
-  padding: 16px 16px 14px;
-  border-radius: 18px;
-  background: var(--crema); color: var(--noce);
-  box-shadow: 0 22px 50px rgba(46, 30, 20, .24);
-  opacity: 0; visibility: hidden;
-  transform: translateY(-6px) scale(.96); transform-origin: 22px 0;
-  transition: opacity .22s var(--ease-out), transform .22s var(--ease-out), visibility 0s linear .22s;
-}
-.musica.aperto .musica__pannello { opacity: 1; visibility: visible; transform: none; transition: opacity .22s var(--ease-out), transform .22s var(--ease-out), visibility 0s; }
-.musica__stato { margin: 0 0 6px; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--rosso); }
-.musica__titolo { margin: 0; font-family: var(--f-titolo); font-size: 26px; line-height: 1; }
-.musica__autore { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin: 6px 0 0; font-size: 13px; opacity: .8; }
-.musica__fonte { flex: none; font-weight: 600; }
-.musica__barra { position: relative; height: 3px; margin: 14px 0 13px; border-radius: 2px; background: rgba(46, 30, 20, .14); overflow: hidden; }
-.musica__barra b { position: absolute; inset: 0; background: var(--rosso); transform: scaleX(var(--pos, 0)); transform-origin: 0 50%; transition: transform .3s linear; }
-.musica__comandi { display: flex; align-items: center; justify-content: center; gap: 10px; }
-.musica__tasto { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 999px; border: 1.5px solid rgba(46, 30, 20, .2); transition: transform .15s var(--ease-out), background-color .25s; }
-.musica__tasto svg { width: 18px; height: 18px; fill: currentColor; }
-.musica__tasto:active { transform: scale(.93); }
-.musica__tasto--play { width: 56px; height: 56px; border: 0; background: var(--rosso); color: var(--crema); }
-.musica__tasto--play svg { width: 22px; height: 22px; }
-.musica__tasto--play .icona-pausa, .musica.suona .musica__tasto--play .icona-play { display: none; }
-.musica.suona .musica__tasto--play .icona-pausa { display: block; }
-@media (hover: hover) and (pointer: fine) { .musica__tasto:not(.musica__tasto--play):hover { background: var(--crema-2); } }
-
 /* menu a tutto schermo */
 .menu {
   position: fixed; inset: 0; z-index: 55;
@@ -570,7 +531,6 @@ html.in-caricamento .eroe__marchio, html.in-caricamento .eroe__dove, html.in-car
   .pillola-cta .rotola { display: none; }
   .pillola-cta svg { width: 20px; height: 20px; }
   .testata__menu { height: 42px; padding: 0 14px; }
-  .testata__musica { width: 42px; height: 42px; }
   .menu ul { columns: 1; }
   .menu li a { font-size: 12vw; }
 
