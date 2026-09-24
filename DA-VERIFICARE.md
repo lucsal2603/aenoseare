@@ -66,6 +66,11 @@ da me.
   quella dotazione.
 - **Le domande**: le risposte sono prese dai dati qui sopra, le domande le ho
   scritte io.
+- **WhatsApp** (bottone fisso in basso a destra, aggiunto su richiesta di
+  Lucas): il sito attuale non nomina WhatsApp; ho usato il cellulare
+  345 3229902, l'unico numero mobile che pubblicano. **Chiedere a Claudia se
+  hanno WhatsApp su quel numero** (o quale usano). Il messaggio già scritto
+  che si apre nella chat, "Buongiorno, vorrei qualche informazione.", è mio.
 - **Legenda degli allergeni**: sul sito ci sono solo i numeri; ho messo la
   numerazione del regolamento europeo (1 glutine, 3 uova, 7 latte, 12 solfiti…).
   Chiedere se usano proprio quella.

@@ -844,6 +844,41 @@
     });
   })();
 
+  /* ---------------- WhatsApp: il bottone in basso a destra ----------------
+     compare dopo l'apertura (che ha già i suoi bottoni), l'anello di testo gira
+     più veloce quando si scorre o si passa sopra, al computer segue un poco il mouse */
+  (function whatsapp() {
+    const wa = $('.wa'); if (!wa) return;
+    const giro = $('.wa__giro', wa);
+    gsap.set(wa, { scale: 0, rotation: -120, autoAlpha: 0 });
+    const mostra = () => gsap.to(wa, { scale: 1, rotation: 0, autoAlpha: 1, duration: 1, ease: 'back.out(1.7)', overwrite: 'auto' });
+    const nascondi = () => gsap.to(wa, { scale: 0, rotation: -120, autoAlpha: 0, duration: 0.45, ease: 'power2.in', overwrite: 'auto' });
+    ScrollTrigger.create({
+      trigger: '#chi-siamo', start: 'top 85%', endTrigger: 'html', end: 'bottom bottom',
+      onToggle: (s) => (s.isActive ? mostra() : nascondi()),
+    });
+    let angolo = 0, spinta = 0, prima = scrollAdesso(), sopra = false;
+    gsap.ticker.add(() => {
+      const y = scrollAdesso();
+      spinta += (Math.min(40, Math.abs(y - prima)) - spinta) * 0.12;
+      prima = y;
+      angolo += (sopra ? 2.2 : 0.45) + spinta * 0.45;
+      giro.style.transform = `rotate(${angolo.toFixed(1)}deg)`;
+    });
+    if (TOCCO) return;
+    wa.addEventListener('pointerenter', () => { sopra = true; });
+    wa.addEventListener('pointerleave', () => { sopra = false; });
+    /* la calamita: vicino al puntatore il bottone si sposta un poco verso di lui */
+    const xTo = gsap.quickTo(wa, 'x', { duration: 0.6, ease: 'power3' });
+    const yTo = gsap.quickTo(wa, 'y', { duration: 0.6, ease: 'power3' });
+    addEventListener('pointermove', (e) => {
+      const r = wa.getBoundingClientRect();
+      const cx = r.left + r.width / 2 - gsap.getProperty(wa, 'x'), cy = r.top + r.height / 2 - gsap.getProperty(wa, 'y');
+      const dx = e.clientX - cx, dy = e.clientY - cy, d = Math.hypot(dx, dy);
+      if (d < 150) { xTo(dx * 0.28); yTo(dy * 0.28); } else { xTo(0); yTo(0); }
+    }, { passive: true });
+  })();
+
   /* ---------------- partenza ---------------- */
   const pronto = () => {
     ScrollTrigger.refresh();
