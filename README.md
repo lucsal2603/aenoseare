@@ -9,67 +9,67 @@ spaccio. Bozza gratuita concordata con Claudia il 16 settembre 2026.
 Questa è una bozza: la pagina dichiara `noindex, nofollow` e `robots.txt`
 chiude tutto, così l'anteprima non disturba il sito ufficiale aenoseare.it.
 Le versioni precedenti restano nei tag `v1-aia` (l'aia con le parole di
-traverso) e `v2-facetad` (nuvola di foto e tagli diagonali).
+traverso), `v2-facetad` (nuvola di foto e tagli diagonali) e `v3-giornata`
+(una giornata in campagna, illustrata).
 
-## Terza versione (23 settembre 2026): una giornata in campagna
-Rifatta da zero prendendo impianto, movimento e stile da due siti:
+## Quarta versione (24 settembre 2026): in campagna dal 1970
+Rifatta da zero. Niente illustrazioni: il carattere viene dal loro logo, dalle
+foto vere e da colori pieni di campagna che cambiano di sezione in sezione
+(rosso pomodoro, crema, vinaccia, oliva, polenta, lavanda, notte, zucca,
+acqua). Impianto e movimenti presi da sette siti:
 
-- **visiblecuration.vercel.app** (Art of Korea): il mattino illustrato.
-  Cielo azzurro, archi annidati a bande (qui il portico di casa, nei toni
-  dell'ocra e del cotto), le onde a ventaglio in basso (qui un campo di
-  lavanda che ondeggia al vento), gli alberi bianchi, l'animale sulla palla
-  (qui un gallo sul sole, che canta), la scritta a mano che resta al centro,
-  la fascia azzurra con le due righe che scorrono in versi opposti, le
-  cartoline sparse con le nuvole, i salti fra le sezioni con il cerchio che
-  si apre dal punto del clic.
-- **dkton.at** (Dominik Kostolnik): la sera e la notte. L'ingresso nero con
-  le pillole che si accendono e il nome giallo, la testata a scatole con le
-  barre di avanzamento e la voce attiva gialla, il bottone con gli angoli da
-  mirino, il manifesto con le lettere che si accendono e le foto dentro il
-  testo, le righe a "livello" che si riempiono di colore con la parola che
-  cambia tinta, le pillole che salgono come un equalizzatore e diventano
-  strisce di foto fino a riempire lo schermo, le specialità con i crediti
-  fissi a lato e il nome enorme che si accende lettera per lettera, il menù
-  a righe che si riempiono di giallo con l'anteprima che segue il mouse, le
-  domande con l'interruttore, le foto che si ricompongono, il piede con la
-  linea che si disegna e il marchio gigante.
+- **s25.studio**: il marchio gigante che, scorrendo, vola a rimpicciolirsi
+  nella testata.
+- **delice.ca**: il ristorante di famiglia a colori pieni, i piatti tondi, i
+  pannelli affiancati con i titoli ad arco, il riquadro degli orari del giorno
+  con le frecce.
+- **joinswsh.com**: la foto che si apre tra due parole che si allontanano e
+  poi diventa una griglia che si allarga; il cestino con le palline che cadono
+  e si possono prendere col mouse (fisica vera, Matter.js).
+- **moremedia.at**: la fisarmonica a colonne colorate, il muro dei nomi che si
+  accende, il timbro che gira col numero di telefono.
+- **alejandroha.com**: la pennellata che attraversa lo schermo e porta alla
+  sera, le lettere che cadono al loro posto.
+- **loehx.com**: le foto delle camere che arrivano dal fondo e ci passano
+  accanto.
+- **ascension.pegassi.be**: la grana da pellicola su tutta la pagina e il
+  lettore musicale piccolo.
 
-Lo scorrimento è la giornata: alba (ingresso), mattino (eroe, chi siamo,
-fattoria, spaccio, dintorni), tramonto (il cielo si spegne mentre salgono le
-pillole), sera (cucina, menù, cene a tema), notte (camere, domande, album,
-contatti). Il puntatore è un sole che gira con la velocità di scorrimento e
-di sera diventa una luna.
+## Il percorso
+Apertura rossa col logo che si scrive e i girasoli che sbocciano; scorrendo
+il logo va nella testata e una macchia che respira si allarga fino a mostrare
+salumi e pane, con "Venite a trovarci!". Poi chi siamo (le parole si
+accendono, i nomi della famiglia come etichette), la campagna (lavanda tra le
+parole, poi nove foto), quattro cose (fisarmonica: cucina, camere, fattoria,
+spaccio), dalla nostra cucina (otto piatti tondi che rotolano e lo sfondo che
+prende il colore del piatto), il menù di settembre (righe che si mettono a
+fuoco a metà schermo, foto che segue il mouse), qualche numero di casa (bolle
+che galleggiano), la pennellata vinaccia, le camere (tunnel di foto), prezzi e
+"Buongiorno!" con la colazione, la fattoria (lettere che cadono, muro degli
+animali, fattoria didattica e centri estivi, l'anno in campagna col mese in
+corso), lo spaccio e il distributore (con lo stato aperto o chiuso in ora di
+Roma), cosa visitare (il rullo delle città che gira come un tamburo), le cene
+a tema (carte a ventaglio), le domande (il titolo si scrive da solo), il piede
+(orari giorno per giorno, timbro, certificazioni, cestino).
 
-Colori presi dai due riferimenti e dalla campagna: cielo `#B7D4EC`, nuvola
-`#F3F7FB`, inchiostro `#132C43`, girasole `#FFB800`, lavanda `#A67EFF`,
-pomodoro `#FF4337`, notte `#0B0401`. Caratteri: **Archivo** (largo e dritto
-per il nome, stretto e corsivo per i titoli, come il GT Walsheim Condensed di
-dkton), **Geist Mono** per le etichette tra parentesi, **Borel** per la
-scritta a mano.
+Caratteri: **Gloock** per i titoli, **Instrument Serif** corsivo per le
+parole morbide, **Instrument Sans** per i testi. Il puntatore è uno dei
+girasoli del logo e gira più veloce quando si scorre.
 
 ## Logo e musica
-Nell'apertura c'è il loro logo, ricalcato in vettoriale dal PNG del sito attuale
-con i quattro girasoli ridisegnati, e si scrive da sinistra a destra.
-In alto a sinistra il pulsante della musica: le barrette ballano con l'audio vero
-(analizzatore Web Audio) e al clic si apre il pannellino con titolo, autore,
-fonte, avanzamento e i comandi indietro, pausa e avanti. Dodici brani senza
-diritti in `audio/`, in ordine casuale senza ripetizioni; la musica parte al
-primo clic sulla pagina. Licenze e brani esclusi in `DA-VERIFICARE.md`.
-
-## Sezioni
-Alba, eroe illustrato, chi siamo, cosa trovate (livelli), la fattoria
-(animali, fattoria didattica, centri estivi, l'anno in campagna con il mese in
-corso acceso), lo spaccio (vasi, distributore del latte che si riempie, stato
-del punto vendita in tempo reale), cosa visitare, fascia prenotazioni,
-tramonto, la cucina (quattro specialità), il menù di settembre con prezzi e
-allergeni, cene a tema, le camere (binario orizzontale, prezzi a barre,
-colazione), domande, album, contatti e certificazioni.
+Il logo è il loro, ricalcato in vettoriale dal PNG del sito attuale, con i
+quattro girasoli ridisegnati. In alto a sinistra il pulsante della musica: le
+barrette ballano con l'audio vero (analizzatore Web Audio) e al clic si apre il
+pannellino con titolo, autore, fonte, avanzamento e i comandi indietro, pausa e
+avanti. Dodici brani senza diritti in `audio/`, in ordine casuale senza
+ripetizioni; la musica parte al primo clic sulla pagina. Licenze e brani
+esclusi in `DA-VERIFICARE.md`.
 
 ## Tecnica
-HTML, CSS e JavaScript puri, senza build. GSAP 3.15 (ScrollTrigger,
-SplitText, CustomEase, ScrambleText) e Lenis 1.3 da jsDelivr, font da Google
-Fonts. Con `prefers-reduced-motion` (o `?statico`) la pagina è ferma, senza
-pin, e leggibile. `?qa` salta l'alba e Lenis (serve ai collaudi), `?scroll=N`
+HTML, CSS e JavaScript puri, senza build. GSAP 3.15 (ScrollTrigger, SplitText,
+CustomEase), Lenis 1.3 e Matter.js 0.20 da jsDelivr, font da Google Fonts.
+Con `prefers-reduced-motion` (o `?statico`) la pagina è ferma, senza pin, e
+leggibile. `?qa` salta l'ingresso e Lenis (serve ai collaudi), `?scroll=N`
 apre la pagina già scesa di N pixel.
 
 Le foto vengono tutte dal sito attuale aenoseare.it e dalla sua libreria
