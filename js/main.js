@@ -519,7 +519,7 @@
     function misura() {
       const W = palco.clientWidth, H = palco.clientHeight;
       svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-      linea.setAttribute('d', `M${-0.12 * W} ${0.9 * H}C${0.18 * W} ${1.18 * H} ${0.3 * W} ${0.18 * H} ${0.56 * W} ${0.38 * H}S${0.9 * W} ${0.72 * H} ${1.14 * W} ${0.06 * H}`);
+      linea.setAttribute('d', `M${-0.06 * W} ${1.04 * H}C${0.2 * W} ${0.96 * H} ${0.3 * W} ${0.2 * H} ${0.56 * W} ${0.38 * H}S${0.9 * W} ${0.72 * H} ${1.14 * W} ${0.06 * H}`);
       L = linea.getTotalLength();
       spessore = Math.max(70, Math.min(W, H) * 0.14);
       finale = Math.hypot(W, H) * 2.2;

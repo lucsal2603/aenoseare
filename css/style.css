@@ -361,14 +361,14 @@ html.in-caricamento .eroe__marchio, html.in-caricamento .eroe__dove, html.in-car
 .bolla--foto img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; }
 
 /* ---------- LA FASCIA CHE SPAZZA ---------- */
-.spazzata { position: relative; margin-top: -62vh; pointer-events: none; }
-.spazzata__palco { position: relative; height: var(--schermo); overflow: hidden; }
+.spazzata { position: relative; }
+.spazzata__palco { position: relative; height: var(--schermo); overflow: hidden; background: var(--crema); }
 .spazzata__svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 .spazzata__linea { fill: none; stroke: var(--vinaccia); stroke-linecap: round; }
 .spazzata__testo { font-family: var(--f-corsivo); font-style: italic; fill: var(--crema); letter-spacing: .01em; }
 
 /* ---------- LE CAMERE ---------- */
-.camere { position: relative; margin-top: -45vh; background: var(--vinaccia); color: var(--crema); }
+.camere { position: relative; background: var(--vinaccia); color: var(--crema); }
 .camere__palco { position: relative; height: var(--schermo); overflow: hidden; }
 .camere__testa { position: absolute; z-index: 20; left: var(--margine); right: var(--margine); top: 50%; transform: translateY(-50%); text-align: center; pointer-events: none; }
 .camere__testa .etichetta { justify-content: center; color: var(--polenta); }
@@ -652,7 +652,6 @@ html.statico .piatti__palco { height: auto; padding: 44vh 0 16vh; }
 html.statico .piatti__binario { position: relative; top: auto; flex-wrap: wrap; justify-content: center; width: auto; padding: 0 var(--margine); row-gap: 8vh; }
 html.statico .riga { opacity: 1; }
 html.statico .spazzata { display: none; }
-html.statico .camere { margin-top: 0; }
 html.statico .camere__palco { height: auto; padding: 16vh 0 0; }
 html.statico .camere__testa { position: relative; top: auto; transform: none; }
 html.statico .camere__tunnel { position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; padding: 8vh var(--margine); }
