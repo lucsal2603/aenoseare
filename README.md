@@ -51,10 +51,9 @@ Roma), cosa visitare (il rullo delle città che gira come un tamburo), le cene
 a tema (carte a ventaglio), le domande (il titolo si scrive da solo), il piede
 (orari giorno per giorno, timbro, certificazioni, cestino).
 
-Dopo l'apertura compare in basso a destra il bottone di WhatsApp: un disco
-scuro con la scritta "Scrivici su WhatsApp, 345 3229902" che gira (più veloce
-quando si scorre o ci si passa sopra) e il tondo verde col logo che ogni tanto
-squilla; al computer si avvicina un poco al puntatore.
+Dopo l'apertura compare in basso a destra il bottone di WhatsApp: il tondo
+verde col logo, che ogni tanto squilla e si inclina quando si scorre; al
+computer si avvicina un poco al puntatore.
 
 Caratteri: **Gloock** per i titoli, **Instrument Serif** corsivo per le
 parole morbide, **Instrument Sans** per i testi. Il puntatore è uno dei

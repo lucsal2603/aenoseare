@@ -845,11 +845,11 @@
   })();
 
   /* ---------------- WhatsApp: il bottone in basso a destra ----------------
-     compare dopo l'apertura (che ha già i suoi bottoni), l'anello di testo gira
-     più veloce quando si scorre o si passa sopra, al computer segue un poco il mouse */
+     compare dopo l'apertura (che ha già i suoi bottoni), il logo si inclina con la
+     velocità di scorrimento, al computer il bottone segue un poco il mouse */
   (function whatsapp() {
     const wa = $('.wa'); if (!wa) return;
-    const giro = $('.wa__giro', wa);
+    const inclina = $('.wa__inclina', wa);
     gsap.set(wa, { scale: 0, rotation: -120, autoAlpha: 0 });
     const mostra = () => gsap.to(wa, { scale: 1, rotation: 0, autoAlpha: 1, duration: 1, ease: 'back.out(1.7)', overwrite: 'auto' });
     const nascondi = () => gsap.to(wa, { scale: 0, rotation: -120, autoAlpha: 0, duration: 0.45, ease: 'power2.in', overwrite: 'auto' });
@@ -857,17 +857,16 @@
       trigger: '#chi-siamo', start: 'top 85%', endTrigger: 'html', end: 'bottom bottom',
       onToggle: (s) => (s.isActive ? mostra() : nascondi()),
     });
-    let angolo = 0, spinta = 0, prima = scrollAdesso(), sopra = false;
+    let piega = 0, prima = scrollAdesso();
     gsap.ticker.add(() => {
       const y = scrollAdesso();
-      spinta += (Math.min(40, Math.abs(y - prima)) - spinta) * 0.12;
+      const bersaglio = Math.max(-22, Math.min(22, (y - prima) * 0.9));
       prima = y;
-      angolo += (sopra ? 2.2 : 0.45) + spinta * 0.45;
-      giro.style.transform = `rotate(${angolo.toFixed(1)}deg)`;
+      piega += (bersaglio - piega) * 0.1;
+      if (Math.abs(piega) < 0.05 && !bersaglio) piega = 0;
+      inclina.style.transform = piega ? `rotate(${piega.toFixed(2)}deg)` : '';
     });
     if (TOCCO) return;
-    wa.addEventListener('pointerenter', () => { sopra = true; });
-    wa.addEventListener('pointerleave', () => { sopra = false; });
     /* la calamita: vicino al puntatore il bottone si sposta un poco verso di lui */
     const xTo = gsap.quickTo(wa, 'x', { duration: 0.6, ease: 'power3' });
     const yTo = gsap.quickTo(wa, 'y', { duration: 0.6, ease: 'power3' });
